@@ -29,6 +29,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ env.BE_REPO }}
+          token: ${{ secrets.GHCR_TOKEN }}
           path: syzy-be
           fetch-depth: 0
 
