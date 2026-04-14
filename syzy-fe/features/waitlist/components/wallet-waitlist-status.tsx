@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2, Copy, Check, Mail, TrendingUp } from "lucide-react";
 import { useReownWallet } from "@/features/auth/hooks/use-reown-wallet";
 import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitlist-member-auth-store";
 import { useWaitlistMemberSession } from "@/features/waitlist/hooks/use-waitlist-member-session";
@@ -72,7 +71,7 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        <p className="text-sm text-muted-foreground">Loading...</p>
       </div>
     );
   }
@@ -131,7 +130,7 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
         </div>
         <div className="grid grid-cols-3 gap-2">
           <Button size="sm" variant="outline" onClick={handleCopy} className="col-span-1">
-            {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+            {copied ? "Copied!" : "Copy"}
           </Button>
           <Button
             size="sm"
@@ -142,7 +141,6 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
             }}
             className="col-span-2 bg-primary hover:bg-teal-600 text-white"
           >
-            <TrendingUp className="mr-1.5 h-4 w-4" />
             Share on X
           </Button>
         </div>
@@ -174,17 +172,13 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
       {/* 4. Email task or success */}
       {confirmedEmail ? (
         <div className="flex items-center gap-3 rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3">
-          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-white">
-            <Check className="h-3.5 w-3.5" />
-          </div>
           <span className="text-sm font-medium text-green-600 dark:text-green-400">
             Email confirmed: {maskEmail(confirmedEmail)}
           </span>
         </div>
       ) : (
         <div className="rounded-xl border border-primary/30 bg-primary/5 p-5">
-          <div className="flex items-center gap-3 mb-2">
-            <Mail className="h-4 w-4 text-primary" />
+          <div className="mb-2">
             <p className="text-sm font-semibold text-foreground">Complete your setup</p>
           </div>
           <p className="text-xs text-muted-foreground mb-4">
@@ -204,11 +198,6 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
                       : "border-border",
                   )}
                 />
-                {emailInput.length > 0 && emailValid && (
-                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-                    <Check className="h-4 w-4 text-green-500" />
-                  </span>
-                )}
               </div>
               <Button
                 type="submit"
@@ -216,9 +205,7 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
                 variant={emailValid && emailState !== "submitting" ? "default" : "outline"}
                 size="lg" className="h-11 shrink-0 px-6"
               >
-                {emailState === "submitting" ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : "Attach"}
+                {emailState === "submitting" ? "Attaching..." : "Attach"}
               </Button>
             </div>
             {emailState === "error" && emailError && (

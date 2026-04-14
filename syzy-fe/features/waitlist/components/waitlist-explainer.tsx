@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FAQ_ITEMS = [
@@ -42,12 +41,12 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         className="flex w-full items-center justify-between py-5 text-left"
       >
         <span className="text-sm font-medium text-foreground">{question}</span>
-        <ChevronDown
-          className={cn(
-            "h-4 w-4 text-muted-foreground transition-transform duration-200",
-            open && "rotate-180",
-          )}
-        />
+        <span className={cn(
+          "text-muted-foreground text-xs transition-transform duration-200 select-none",
+          open && "rotate-180 inline-block",
+        )}>
+          {open ? "−" : "+"}
+        </span>
       </button>
       {open && (
         <p className="pb-5 text-sm text-muted-foreground leading-relaxed">{answer}</p>

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Loader2 } from "lucide-react";
 import { useReownWallet } from "@/features/auth/hooks/use-reown-wallet";
 import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitlist-member-auth-store";
 import { useWaitlistMemberSession } from "@/features/waitlist/hooks/use-waitlist-member-session";
@@ -55,7 +54,7 @@ export function WaitlistGate({ children }: WaitlistGateProps) {
   if (!mounted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p className="text-sm text-neutral-400">Loading...</p>
       </div>
     );
   }
@@ -67,10 +66,7 @@ export function WaitlistGate({ children }: WaitlistGateProps) {
   if (!passed) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="text-center space-y-3">
-          <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
-          <p className="text-neutral-400 text-sm">Redirecting to waitlist...</p>
-        </div>
+        <p className="text-neutral-400 text-sm">Redirecting to waitlist...</p>
       </div>
     );
   }
