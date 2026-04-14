@@ -88,6 +88,8 @@ export function MarketDetailContent({
   const solUsdPrice = solPrice?.current_price ?? 0;
   const volumeSol = new Intl.NumberFormat("en-US", { notation: "compact", compactDisplay: "short", maximumFractionDigits: 1 }).format(event.volume);
   const volumeUsd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", notation: "compact", compactDisplay: "short", maximumFractionDigits: 1 }).format(event.volume * solUsdPrice);
+  // eslint-disable-next-line react-hooks/purity
+  const hasEnded = market.isCompleted || (event.end_date != null && new Date(event.end_date).getTime() <= Date.now());
 
   return (
     <div className="min-h-screen bg-background pb-28 lg:pb-20 relative">
@@ -136,20 +138,15 @@ export function MarketDetailContent({
                       {volumeUsd}
                     </span>
                   </div>
-                  {(() => {
-                    const hasEnded = market.isCompleted || (event.end_date && new Date(event.end_date).getTime() <= Date.now());
-                    return (
-                      <Badge
-                        variant={hasEnded ? "secondary" : "default"}
-                        className={cn(
-                          "text-[10px] font-bold shadow-sm",
-                          !hasEnded && "animate-pulse-subtle"
-                        )}
-                      >
-                        {hasEnded ? "Ended" : "Live"}
-                      </Badge>
-                    );
-                  })()}
+                  <Badge
+                    variant={hasEnded ? "secondary" : "default"}
+                    className={cn(
+                      "text-[10px] font-bold shadow-sm",
+                      !hasEnded && "animate-pulse-subtle"
+                    )}
+                  >
+                    {hasEnded ? "Ended" : "Live"}
+                  </Badge>
                   {market.winningOutcome !== null && (
                     <Badge className={cn(
                       "text-[10px] font-bold border shadow-sm",

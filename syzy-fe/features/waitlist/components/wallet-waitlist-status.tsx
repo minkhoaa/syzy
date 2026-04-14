@@ -138,7 +138,7 @@ export function WalletWaitlistStatus() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs text-muted-foreground">Your queue rank</p>
-            <p className="text-3xl font-bold text-white">
+            <p className="text-3xl font-bold text-foreground">
               {status.queueRank != null ? `#${status.queueRank.toLocaleString()}` : "—"}
               {status.totalEntries != null && status.totalEntries > 0 && (
                 <span className="ml-2 text-base font-normal text-muted-foreground">
@@ -172,12 +172,12 @@ export function WalletWaitlistStatus() {
 
       {/* Referred by info */}
       {status.referredByCode && (
-        <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+        <div className="flex items-center gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20">
             <UserPlus className="h-4 w-4 text-primary" />
           </div>
           <div>
-            <p className="text-xs text-neutral-400">You were referred by</p>
+            <p className="text-xs text-muted-foreground">You were referred by</p>
             <p className="font-mono text-sm text-primary">{status.referredByCode}</p>
           </div>
         </div>
@@ -197,7 +197,7 @@ export function WalletWaitlistStatus() {
         <div className="rounded-xl border border-primary/30 bg-primary/5 p-5">
           <div className="flex items-center gap-3 mb-2">
             <Mail className="h-4 w-4 text-primary" />
-            <p className="text-sm font-semibold text-white">Complete your setup</p>
+            <p className="text-sm font-semibold text-foreground">Complete your setup</p>
           </div>
           <p className="text-xs text-muted-foreground mb-4">
             Add your email to receive your access code when early access opens.

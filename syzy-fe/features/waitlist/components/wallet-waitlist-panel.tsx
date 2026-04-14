@@ -33,6 +33,15 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
   }
 
   if (connected && address) {
+    if (isJoining) {
+      return (
+        <div className="flex flex-col items-center justify-center gap-3 py-10">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-sm text-neutral-400">Signing &amp; registering&hellip;</p>
+        </div>
+      );
+    }
+
     return (
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/10 p-4">
@@ -40,8 +49,8 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
             <Wallet className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <p className="text-sm font-medium text-white">Wallet connected</p>
-            <p className="text-xs text-neutral-400 font-mono">
+            <p className="text-sm font-medium text-foreground">Wallet connected</p>
+            <p className="text-xs text-muted-foreground font-mono">
               {address.slice(0, 6)}...{address.slice(-4)}
             </p>
           </div>
@@ -86,19 +95,15 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
               setIsJoining(false);
             }
           }}
-          disabled={isJoining}
           className="w-full bg-primary hover:bg-teal-600 text-white font-semibold"
         >
-          {isJoining ? (
-            <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Preparing...</>
-          ) : (
-            "Join waitlist with this wallet"
-          )}
+          <Wallet className="mr-2 h-5 w-5" />
+          Join waitlist with this wallet
         </Button>
 
         {referredByCode && (
-          <div className="rounded-xl border border-white/5 bg-white/5 px-4 py-2">
-            <p className="text-xs text-neutral-400">
+          <div className="rounded-xl border border-border/50 bg-muted/20 px-4 py-2">
+            <p className="text-xs text-muted-foreground">
               You&apos;ll be credited to your referrer after registration.
             </p>
           </div>
@@ -109,12 +114,12 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+      <div className="rounded-xl border border-border bg-card/50 p-6">
         <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/20 bg-primary/10">
           <Wallet className="h-6 w-6 text-primary" />
         </div>
-        <h3 className="text-xl font-semibold text-white mb-2">Connect your Stellar wallet</h3>
-        <p className="text-sm text-neutral-400 leading-6">
+        <h3 className="text-xl font-semibold text-foreground mb-2">Connect your Stellar wallet</h3>
+        <p className="text-sm text-muted-foreground leading-6">
           Syzy uses wallet-based verification. Connect a Stellar wallet to
           secure your spot and get a referral link immediately. We&apos;ll ask
           for your email after verification to deliver your access code.
@@ -131,7 +136,7 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
         Connect Stellar wallet
       </Button>
 
-      <p className="text-center text-sm text-neutral-600">
+      <p className="text-center text-sm text-muted-foreground">
         Powered by Freighter, Albedo, or any Stellar-compatible wallet.
       </p>
     </div>

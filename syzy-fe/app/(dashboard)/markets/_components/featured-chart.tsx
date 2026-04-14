@@ -28,15 +28,14 @@ interface ChartDataPoint {
 export const FeaturedChart: React.FC<FeaturedChartProps> = ({ event, compact = false }) => {
     const [hoverData, setHoverData] = useState<ChartDataPoint | null>(null);
 
-    const activeMarket = event.markets?.[0];
-    if (!activeMarket) return null;
-    const isBinary = activeMarket.outcomes?.length === 2 && activeMarket.outcomes[0]?.label === 'Yes';
+    const activeMarket = event.markets?.[0] ?? null;
+    const isBinary = activeMarket?.outcomes?.length === 2 && activeMarket.outcomes[0]?.label === 'Yes';
 
     const { snapshots, loading, error } = useMarketSnapshots({
-        marketId: activeMarket.id,
+        marketId: activeMarket?.id ?? null,
         range: "all",
-        currentYesChances: activeMarket.probability,
-        currentNoChances: 100 - activeMarket.probability,
+        currentYesChances: activeMarket?.probability ?? 0,
+        currentNoChances: 100 - (activeMarket?.probability ?? 0),
     });
 
     const chartData: ChartDataPoint[] = useMemo(() => {
@@ -47,6 +46,8 @@ export const FeaturedChart: React.FC<FeaturedChartProps> = ({ event, compact = f
             no: Math.round(s.noPrice * 100) / 100,
         }));
     }, [snapshots]);
+
+    if (!activeMarket) return null;
 
     const currentYes = Number((hoverData?.yes ?? activeMarket.probability).toFixed(2));
     const currentNo = Number((hoverData?.no ?? (100 - activeMarket.probability)).toFixed(2));

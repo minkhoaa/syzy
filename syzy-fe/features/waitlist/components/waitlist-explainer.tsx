@@ -36,21 +36,21 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-white/10 last:border-0">
+    <div className="border-b border-border last:border-0">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between py-5 text-left"
       >
-        <span className="text-sm font-medium text-white">{question}</span>
+        <span className="text-sm font-medium text-foreground">{question}</span>
         <ChevronDown
           className={cn(
-            "h-4 w-4 text-neutral-500 transition-transform duration-200",
+            "h-4 w-4 text-muted-foreground transition-transform duration-200",
             open && "rotate-180",
           )}
         />
       </button>
       {open && (
-        <p className="pb-5 text-sm text-neutral-400 leading-relaxed">{answer}</p>
+        <p className="pb-5 text-sm text-muted-foreground leading-relaxed">{answer}</p>
       )}
     </div>
   );
@@ -58,13 +58,13 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 
 export function WaitlistExplainer() {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+    <div className="rounded-2xl border border-border bg-card/50 p-6 backdrop-blur-sm">
       <div className="flex items-center gap-3 mb-6">
-        <div className="h-px flex-1 bg-white/10" />
-        <p className="text-xs font-medium uppercase tracking-widest text-neutral-600">
+        <div className="h-px flex-1 bg-border" />
+        <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Frequently asked
         </p>
-        <div className="h-px flex-1 bg-white/10" />
+        <div className="h-px flex-1 bg-border" />
       </div>
 
       <div className="space-y-0">

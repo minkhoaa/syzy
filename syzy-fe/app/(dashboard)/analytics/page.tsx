@@ -11,7 +11,7 @@ export default function AnalyticsPage() {
         </div>
         <h1 className="text-2xl font-bold text-slate-900 mb-2">Analytics Coming Soon</h1>
         <p className="text-slate-500 mb-8">
-          We're building detailed portfolio analytics including PnL tracking, performance charts, and market insights. Stay tuned!
+          We&apos;re building detailed portfolio analytics including PnL tracking, performance charts, and market insights. Stay tuned!
         </p>
         <Link href="/portfolio">
           <Button variant="outline" className="rounded-full">

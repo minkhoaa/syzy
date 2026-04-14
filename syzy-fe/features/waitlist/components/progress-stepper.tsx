@@ -20,12 +20,24 @@ export function ProgressStepper({ steps, className }: ProgressStepperProps) {
   return (
     <div className={cn("flex w-full items-start", className)}>
       {steps.map((step, i) => (
-        <div key={step.id} className="flex flex-1 flex-col items-center">
+        <div key={step.id} className="relative flex flex-1 flex-col items-center">
+          {/* Connector line — positioned at dot center level, spans to next dot */}
+          {i < steps.length - 1 && (
+            <div className="absolute left-1/2 top-[18px] h-0.5 w-full -translate-y-1/2 overflow-hidden">
+              <div
+                className={cn(
+                  "h-full w-full transition-all duration-500 ease-out",
+                  step.state === "done" ? "bg-green-500" : "bg-border"
+                )}
+              />
+            </div>
+          )}
+
           {/* Dot */}
           <div
             data-step={step.id}
             className={cn(
-              "mb-2 flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs font-semibold transition-all duration-300",
+              "relative z-10 mb-2 flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs font-semibold transition-all duration-300",
               step.state === "done" && "border-green-500 bg-green-500 text-white animate-stepper-pop",
               step.state === "active" && "border-primary bg-primary/10 text-primary",
               step.state === "inactive" && "border-border bg-background text-muted-foreground"
@@ -49,18 +61,6 @@ export function ProgressStepper({ steps, className }: ProgressStepperProps) {
           >
             {step.label}
           </span>
-
-          {/* Connector line */}
-          {i < steps.length - 1 && (
-            <div className="mt-4 h-0.5 w-full overflow-hidden rounded-full">
-              <div
-                className={cn(
-                  "h-full w-full rounded-full transition-all duration-500 ease-out",
-                  step.state === "done" ? "bg-green-500" : "bg-border"
-                )}
-              />
-            </div>
-          )}
         </div>
       ))}
     </div>
