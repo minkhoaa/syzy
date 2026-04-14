@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { WaitlistPhaseBoard } from "@/features/waitlist/components/waitlist-phase-board";
 import { WaitlistExplainer } from "@/features/waitlist/components/waitlist-explainer";
 import { AuroraBackground } from "@/components/ui/aurora-background";
-import { Badge } from "@/components/ui/badge";
 import { LandingNavbar } from "@/components/layout/landing-navbar";
 
 export const metadata: Metadata = {
@@ -25,32 +24,9 @@ export default async function WaitlistPage({ searchParams }: WaitlistPageProps) 
       <section className="relative min-h-screen flex flex-col overflow-hidden">
         <AuroraBackground className="flex-1 w-full">
           <div className="relative z-10 container mx-auto px-4 pt-28 sm:pt-32 pb-20">
-            {/* Header */}
-            <div className="text-center mb-16 max-w-3xl mx-auto">
-              <Badge variant="outline" className="mb-6 border-primary/40 text-primary text-xs tracking-widest uppercase">
-                Early Access
-              </Badge>
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6 text-foreground leading-tight">
-                Predict{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-b from-primary to-primary/60">
-                  Invisible.
-                </span>
-                <br />
-                <span className="text-foreground/40">Win</span>{" "}
-                <span className="text-muted-foreground">Visible.</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed">
-                Join the Syzy waitlist to get priority access. Connect your wallet,
-                earn referral points, and secure your spot at the top.
-              </p>
-            </div>
-
-            {/* 2-col board: left=wallet flow, right=how it works */}
             <div className="max-w-5xl mx-auto">
               <WaitlistPhaseBoard referredByCode={referredByCode} />
             </div>
-
-            {/* Explainer FAQ below */}
             <div className="max-w-5xl mx-auto mt-8">
               <WaitlistExplainer />
             </div>
