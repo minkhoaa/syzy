@@ -6,9 +6,15 @@ on:
     paths:
       - 'syzy-be/**'
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deploy even without changes'
+        required: false
+        default: 'false'
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}/syzy-backend
+  BE_REPO: MorcaLabs/syzy-be
   NODE_VERSION: '20'
 
 jobs:
@@ -19,8 +25,25 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout backend repo
         uses: actions/checkout@v4
+        with:
+          repository: ${{ env.BE_REPO }}
+          path: syzy-be
+          fetch-depth: 0
+
+      - name: Verify checkout
+        run: |
+          ls -la syzy-be/
+          if [ ! -f "syzy-be/Dockerfile" ]; then
+            echo "ERROR: Dockerfile not found!"
+            exit 1
+          fi
+          if [ ! -f "syzy-be/package.json" ]; then
+            echo "ERROR: package.json not found!"
+            exit 1
+          fi
+          echo "✓ Backend checkout successful"
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -93,7 +116,7 @@ jobs:
               --name syzy-backend \
               --network syzy-network \
               --restart always \
-              -p 7788:7788 \
+              -p 127.0.0.1:7788:7788 \
               -e NODE_ENV=production \
               -e DATABASE_URL='${{ secrets.DB_URL }}' \
               -e REDIS_URL='${{ secrets.REDIS_URL }}' \

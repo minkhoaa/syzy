@@ -6,9 +6,15 @@ on:
     paths:
       - 'syzy-fe/**'
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deploy even without changes'
+        required: false
+        default: 'false'
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}/syzy-frontend
+  FE_REPO: MorcaLabs/syzy-fe
   NODE_VERSION: '20'
 
 jobs:
@@ -19,8 +25,25 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout frontend repo
         uses: actions/checkout@v4
+        with:
+          repository: ${{ env.FE_REPO }}
+          path: syzy-fe
+          fetch-depth: 0
+
+      - name: Verify checkout
+        run: |
+          ls -la syzy-fe/
+          if [ ! -f "syzy-fe/Dockerfile" ]; then
+            echo "ERROR: Dockerfile not found!"
+            exit 1
+          fi
+          if [ ! -f "syzy-fe/package.json" ]; then
+            echo "ERROR: package.json not found!"
+            exit 1
+          fi
+          echo "✓ Frontend checkout successful"
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -90,7 +113,7 @@ jobs:
               --name syzy-frontend \
               --network syzy-network \
               --restart always \
-              -p 3000:3000 \
+              -p 127.0.0.1:3000:3000 \
               ${IMAGE_NAME}:latest
 
             # Cleanup old images
