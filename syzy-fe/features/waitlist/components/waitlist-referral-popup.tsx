@@ -41,17 +41,11 @@ export function WaitlistReferralPopup({ referralCode, onDismiss }: WaitlistRefer
 
       {/* Card */}
       <div className="relative z-10 w-full max-w-sm rounded-2xl border border-primary/30 bg-card p-6 shadow-2xl flex flex-col gap-5">
-        {/* Celebration icon */}
-        <div className="text-center text-4xl">&#127881;</div>
-
-        {/* Title + subtitle */}
+        {/* Title */}
         <div className="text-center">
-          <h2 className="text-xl font-bold text-green-500 mb-1">
+          <h2 className="text-xl font-bold text-green-500">
             You&apos;re officially in!
           </h2>
-          <p className="text-sm text-muted-foreground">
-            Your referral link is ready. Share it now to climb the queue.
-          </p>
         </div>
 
         {/* Referral link display */}

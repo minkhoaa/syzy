@@ -66,11 +66,8 @@ export function WaitlistScreen3() {
 
       <div className="text-center">
         <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
-          YOU&apos;RE IN &#127881;
+          YOU&apos;RE IN
         </h1>
-        <p className="text-sm text-muted-foreground">
-          Your referral link is ready. Share it to climb the queue.
-        </p>
       </div>
 
       {/* Referral link */}
