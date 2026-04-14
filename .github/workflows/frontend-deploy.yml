@@ -8,15 +8,15 @@ on:
       - '.github/workflows/frontend-deploy.yml'
   workflow_dispatch:
 
-env:
-  IMAGE_NAME: ghcr.io/${{ github.repository }}/syzy-frontend
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    
+    env:
+      IMAGE_NAME: ghcr.io/morcalabs/syzy-fullstack/syzy-frontend
 
     steps:
       - name: Checkout code
@@ -62,9 +62,9 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
         env:
-          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_NAME: ghcr.io/morcalabs/syzy-fullstack/syzy-frontend
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
-          GHCR_USER: ${{ github.repository_owner }}
+          GHCR_USER: morcalabs
         with:
           host: ${{ secrets.SSH_HOST }}
           username: root
