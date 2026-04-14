@@ -39,7 +39,7 @@ export function WalletWaitlistStatus() {
   const [emailState, setEmailState] = useState<"idle" | "submitting" | "done" | "error">("idle");
   const [attachedEmail, setAttachedEmail] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [emailInput, setEmailInput] = useState("");
+  const [emailInput, setEmailInput] = useState(store.member?.email ?? "");
   const [copied, setCopied] = useState(false);
 
   const { data: status, isLoading } = useQuery({
@@ -55,7 +55,9 @@ export function WalletWaitlistStatus() {
     retry: 1,
   });
 
-  const hasEmailCompleted = !!(status?.hasEmail || (emailState === "done" && attachedEmail));
+  const confirmedEmail =
+    (emailState === "done" && attachedEmail) ? attachedEmail : (store.member?.email ?? null);
+  const hasEmailCompleted = !!(status?.hasEmail || confirmedEmail);
 
   const steps = [
     { id: "wallet", label: "Wallet", state: "done" as const },
@@ -184,13 +186,13 @@ export function WalletWaitlistStatus() {
       )}
 
       {/* Email task or success */}
-      {emailState === "done" && attachedEmail ? (
+      {confirmedEmail ? (
         <div className="flex items-center gap-3 rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3">
           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-white">
             <Check className="h-3.5 w-3.5" />
           </div>
           <span className="text-sm font-medium text-green-600 dark:text-green-400">
-            Email confirmed: {maskEmail(attachedEmail)}
+            Email confirmed: {maskEmail(confirmedEmail)}
           </span>
         </div>
       ) : (
