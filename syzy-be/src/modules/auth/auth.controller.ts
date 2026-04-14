@@ -47,6 +47,13 @@ export class AuthController {
     return this.authService.requestChallenge(dto.walletAddress);
   }
 
+  @Post('nonce')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Get nonce for wallet authentication (alias for challenge)' })
+  async getNonce(@Body() dto: ChallengeDto) {
+    return this.authService.requestChallenge(dto.walletAddress);
+  }
+
   @Post('register')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Register wallet with signed challenge' })
