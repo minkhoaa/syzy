@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitlist-member-auth-store";
 import { useReownWallet } from "@/features/auth/hooks/use-reown-wallet";
 
-const WAITLIST_API = process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "http://localhost:7788";
+const WAITLIST_API = process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "/api";
 
 interface RegisterResponse {
   accessToken: string;

@@ -13,7 +13,7 @@ import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitli
 import { useWaitlistAdminAuthStore } from "@/features/waitlist/store/use-waitlist-admin-auth-store";
 
 const WAITLIST_API_URL =
-  process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "http://localhost:7788";
+  process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "/api";
 const IS_MOCK = process.env.NEXT_PUBLIC_MOCK === "true";
 
 // ── Axios instance ─────────────────────────────────────────────────

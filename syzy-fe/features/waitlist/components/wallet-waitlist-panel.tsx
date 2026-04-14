@@ -10,7 +10,7 @@ import { WalletWaitlistStatus } from "./wallet-waitlist-status";
 
 import { Button } from "@/components/ui/button";
 
-const WAITLIST_ORIGIN = process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "http://localhost:7788";
+const WAITLIST_ORIGIN = process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "/api";
 
 interface WalletWaitlistPanelProps {
   referredByCode?: string | null;

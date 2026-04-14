@@ -4,6 +4,14 @@ import path from "path";
 const IS_MOCK = process.env.NEXT_PUBLIC_MOCK === 'true';
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:7788/:path*',
+      },
+    ];
+  },
   async redirects() {
     return [
       {

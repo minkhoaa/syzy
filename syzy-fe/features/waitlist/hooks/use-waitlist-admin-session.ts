@@ -18,7 +18,7 @@ export function useWaitlistAdminSession() {
       if (!address) throw new Error("Wallet not connected");
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "http://localhost:7788"}/auth/admin/login`,
+        `${process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "/api"}/auth/admin/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
