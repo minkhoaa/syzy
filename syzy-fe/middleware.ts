@@ -9,7 +9,13 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/waitlist") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon")
+    pathname.startsWith("/favicon") ||
+    pathname.startsWith("/logo") ||
+    pathname.startsWith("/icons") ||
+    pathname.startsWith("/images") ||
+    pathname.startsWith("/fonts") ||
+    pathname.startsWith("/zk") ||
+    /\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|ttf|otf)$/.test(pathname)
   ) {
     return NextResponse.next();
   }
