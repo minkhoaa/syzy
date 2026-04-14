@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./syzy-be
+      dockerfile: Dockerfile
+    container_name: syzy-backend
+    restart: always
+    ports:
+      - "7788:7788"
+    environment:
+      - NODE_ENV=production
+      - PORT=7788
+      - DATABASE_URL=${DB_URL}
+      - REDIS_URL=${REDIS_URL}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - EMAIL_FROM=${EMAIL_FROM}
+      - WAITLIST_APP_ORIGIN=${WAITLIST_APP_ORIGIN}
+      - WAITLIST_MEMBER_JWT_SECRET=${WAITLIST_MEMBER_JWT_SECRET}
+      - WAITLIST_ADMIN_JWT_SECRET=${WAITLIST_ADMIN_JWT_SECRET}
+      - WAITLIST_MEMBER_REFRESH_SECRET=${WAITLIST_MEMBER_REFRESH_SECRET}
+      - WAITLIST_ADMIN_REFRESH_SECRET=${WAITLIST_ADMIN_REFRESH_SECRET}
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7788/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - syzy-network
+
+  frontend:
+    build:
+      context: ./syzy-fe
+      dockerfile: Dockerfile
+    container_name: syzy-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_RPC_URL=${NEXT_PUBLIC_RPC_URL}
+      - NEXT_PUBLIC_REOWN_PROJECT_ID=${NEXT_PUBLIC_REOWN_PROJECT_ID}
+      - NEXT_PUBLIC_PROGRAM_ID=${NEXT_PUBLIC_PROGRAM_ID}
+      - NEXT_PUBLIC_WAITLIST_API_URL=${NEXT_PUBLIC_WAITLIST_API_URL}
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - syzy-network
+
+networks:
+  syzy-network:
+    driver: bridge

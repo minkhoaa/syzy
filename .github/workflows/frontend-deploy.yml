@@ -1,0 +1,91 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'syzy-fe/**'
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/syzy-frontend
+  NODE_VERSION: '20'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./
+          dockerfile: syzy-fe/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Login to GHCR
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            # Pull new image
+            docker pull ${{ env.IMAGE_NAME }}:latest
+
+            # Stop and remove old container
+            docker stop syzy-frontend || true
+            docker rm syzy-frontend || true
+
+            # Run new container
+            docker run -d \
+              --name syzy-frontend \
+              --restart always \
+              -p 3000:3000 \
+              -e NEXT_PUBLIC_API_URL='${{ secrets.NEXT_PUBLIC_API_URL }}' \
+              -e NEXT_PUBLIC_RPC_URL='${{ secrets.NEXT_PUBLIC_RPC_URL }}' \
+              -e NEXT_PUBLIC_REOWN_PROJECT_ID='${{ secrets.NEXT_PUBLIC_REOWN_PROJECT_ID }}' \
+              -e NEXT_PUBLIC_PROGRAM_ID='${{ secrets.NEXT_PUBLIC_PROGRAM_ID }}' \
+              -e NEXT_PUBLIC_WAITLIST_API_URL='${{ secrets.NEXT_PUBLIC_WAITLIST_API_URL }}' \
+              ${{ env.IMAGE_NAME }}:latest
+
+            # Cleanup
+            docker image prune -f
+
+            # Health check
+            sleep 10
+            curl -f http://localhost:3000/health || curl -f http://localhost:3000 || exit 1
