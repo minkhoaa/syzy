@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2, Copy, ExternalLink, Check, Mail, TrendingUp, UserPlus } from "lucide-react";
+import { Loader2, Copy, Check, Mail, TrendingUp } from "lucide-react";
 import { useReownWallet } from "@/features/auth/hooks/use-reown-wallet";
 import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitlist-member-auth-store";
 import { useWaitlistMemberSession } from "@/features/waitlist/hooks/use-waitlist-member-session";
@@ -26,11 +26,15 @@ interface WaitlistStatusData {
   emailDeliveryEligible: boolean;
 }
 
+interface WalletWaitlistStatusProps {
+  showIdentity?: boolean;
+}
+
 function maskEmail(email: string): string {
   return email.replace(/(.{2}).*(@.*)/, "$1***$2");
 }
 
-export function WalletWaitlistStatus() {
+export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStatusProps) {
   const { address } = useReownWallet();
   const store = useWaitlistMemberAuthStore();
   const queryClient = useQueryClient();
@@ -86,11 +90,6 @@ export function WalletWaitlistStatus() {
     setTimeout(() => setCopied(false), 2000);
   }
 
-  function handleShareX() {
-    const text = `Just secured my spot on the Syzy waitlist 🚀\nPredict Invisible. Win Visible.\n\nUse my link to join:\n${referralLink}`;
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
-  }
-
   async function handleAttachEmail(e: React.FormEvent) {
     e.preventDefault();
     if (!emailInput.trim()) return;
@@ -122,70 +121,57 @@ export function WalletWaitlistStatus() {
 
   return (
     <div className="space-y-4">
-      {/* Identity block */}
-      <div className="rounded-xl border border-primary/20 bg-primary/10 px-4 py-3">
-        <p className="text-sm font-semibold text-foreground leading-tight">
-          Registered as <span className="font-mono">{shortAddr}</span>
-        </p>
-        <p className="text-xs text-muted-foreground leading-tight">
-          Wallet verified. Finish setup below.
-        </p>
-      </div>
-
-      {/* Stepper */}
-      <ProgressStepper steps={steps} />
-
-      {/* Stats: rank + referrals */}
+      {/* 1. Referral link u2014 growth-first */}
       <div className="rounded-xl border border-border bg-card p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs text-muted-foreground">Your queue rank</p>
-            <p className="text-3xl font-bold text-foreground">
-              {status.queueRank != null ? `#${status.queueRank.toLocaleString()}` : "—"}
-              {status.totalEntries != null && status.totalEntries > 0 && (
-                <span className="ml-2 text-base font-normal text-muted-foreground">
-                  of {status.totalEntries.toLocaleString()}
-                </span>
-              )}
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-muted-foreground">Referrals</p>
-            <p className="text-3xl font-semibold text-primary">{status.successfulReferralCount}</p>
-          </div>
+        <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground mb-2">
+          Your referral link
+        </p>
+        <div className="min-w-0 overflow-hidden text-ellipsis rounded-lg border border-border bg-background px-3 py-2 font-mono text-xs text-muted-foreground mb-3 whitespace-nowrap">
+          {referralLink}
         </div>
-      </div>
-
-      {/* Referral link */}
-      <div className="rounded-xl border border-border bg-card p-4">
-        <p className="text-xs text-muted-foreground mb-2">Your referral link</p>
-        <div className="flex items-center gap-2">
-          <div className="min-w-0 flex-1 overflow-hidden text-ellipsis rounded-lg border border-border bg-background px-3 py-2 font-mono text-xs text-muted-foreground">
-            {referralLink}
-          </div>
-          <Button size="icon" variant="outline" onClick={handleCopy} className="shrink-0">
+        <div className="grid grid-cols-3 gap-2">
+          <Button size="sm" variant="outline" onClick={handleCopy} className="col-span-1">
             {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
           </Button>
-          <Button size="icon" variant="outline" onClick={handleShareX} className="shrink-0">
-            <ExternalLink className="h-4 w-4" />
+          <Button
+            size="sm"
+            variant="default"
+            onClick={() => {
+              const text = `Just secured my spot on the Syzy waitlist \ud83d\ude80\nPredict Invisible. Win Visible.\n\nUse my link to join:\n${referralLink}`;
+              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+            }}
+            className="col-span-2 bg-primary hover:bg-teal-600 text-white"
+          >
+            <TrendingUp className="mr-1.5 h-4 w-4" />
+            Share on X
           </Button>
         </div>
       </div>
 
-      {/* Referred by info */}
-      {status.referredByCode && (
-        <div className="flex items-center gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20">
-            <UserPlus className="h-4 w-4 text-primary" />
-          </div>
-          <div>
-            <p className="text-xs text-muted-foreground">You were referred by</p>
-            <p className="font-mono text-sm text-primary">{status.referredByCode}</p>
-          </div>
+      {/* 2. Stats */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-xl border border-border bg-card p-4 text-center">
+          <p className="text-xs text-muted-foreground">Queue rank</p>
+          <p className="text-3xl font-bold text-foreground leading-tight">
+            {status.queueRank != null ? `#${status.queueRank.toLocaleString()}` : "u2014"}
+          </p>
+          {status.totalEntries != null && status.totalEntries > 0 && (
+            <p className="text-xs text-muted-foreground">of {status.totalEntries.toLocaleString()}</p>
+          )}
         </div>
-      )}
+        <div className="rounded-xl border border-border bg-card p-4 text-center">
+          <p className="text-xs text-muted-foreground">Referrals</p>
+          <p className="text-3xl font-semibold text-primary leading-tight">
+            {status.successfulReferralCount}
+          </p>
+          <p className="text-xs text-muted-foreground">successful</p>
+        </div>
+      </div>
 
-      {/* Email task or success */}
+      {/* 3. Stepper */}
+      <ProgressStepper steps={steps} />
+
+      {/* 4. Email task or success */}
       {confirmedEmail ? (
         <div className="flex items-center gap-3 rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3">
           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-white">
@@ -244,11 +230,17 @@ export function WalletWaitlistStatus() {
         </div>
       )}
 
-      {/* Share CTA */}
-      <Button variant="gradient" size="lg" onClick={handleShareX} className="w-full">
-        <TrendingUp className="mr-2 h-5 w-5" />
-        Share on X to climb the queue
-      </Button>
+      {/* 5. Identity block u2014 optional, hidden when showIdentity=false */}
+      {showIdentity && (
+        <div className="rounded-xl border border-primary/20 bg-primary/10 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground leading-tight">
+            Registered as <span className="font-mono">{shortAddr}</span>
+          </p>
+          <p className="text-xs text-muted-foreground leading-tight">
+            Wallet verified. Finish setup below.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
