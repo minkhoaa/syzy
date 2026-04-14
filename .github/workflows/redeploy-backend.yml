@@ -1,0 +1,54 @@
+name: Redeploy Backend (no build)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          IMAGE_NAME: ghcr.io/morcalabs/syzy-fullstack/syzy-backend
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GHCR_USER: morcalabs
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          envs: IMAGE_NAME,GHCR_TOKEN,GHCR_USER
+          script: |
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
+            docker pull ${IMAGE_NAME}:latest
+            docker stop syzy-backend || true
+            docker rm syzy-backend || true
+            docker network create syzy-network 2>/dev/null || true
+            docker run -d \
+              --name syzy-backend \
+              --network syzy-network \
+              --restart always \
+              -p 127.0.0.1:7788:7788 \
+              -e NODE_ENV=production \
+              -e DATABASE_URL='${{ secrets.DB_URL }}' \
+              -e REDIS_URL='${{ secrets.REDIS_URL }}' \
+              -e RESEND_API_KEY='${{ secrets.RESEND_API_KEY }}' \
+              -e EMAIL_FROM='${{ secrets.EMAIL_FROM }}' \
+              -e WAITLIST_APP_ORIGIN='${{ secrets.WAITLIST_APP_ORIGIN }}' \
+              -e WAITLIST_MEMBER_JWT_SECRET='${{ secrets.WAITLIST_MEMBER_JWT_SECRET }}' \
+              -e WAITLIST_ADMIN_JWT_SECRET='${{ secrets.WAITLIST_ADMIN_JWT_SECRET }}' \
+              -e WAITLIST_MEMBER_REFRESH_SECRET='${{ secrets.WAITLIST_MEMBER_REFRESH_SECRET }}' \
+              -e WAITLIST_ADMIN_REFRESH_SECRET='${{ secrets.WAITLIST_ADMIN_REFRESH_SECRET }}' \
+              ${IMAGE_NAME}:latest
+            echo "Waiting for backend..."
+            for i in 1 2 3 4 5; do
+              sleep 5
+              if curl -sf http://localhost:7788/health; then
+                echo "Backend healthy!"
+                exit 0
+              fi
+            done
+            docker logs syzy-backend --tail 30
+            exit 1
