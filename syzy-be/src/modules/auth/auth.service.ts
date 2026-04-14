@@ -12,8 +12,8 @@ export class AuthService {
   constructor(private readonly prisma: PrismaService) {}
 
   async requestChallenge(walletAddress: string): Promise<{ challenge: string; nonce: string; expiresAt: string }> {
-    if (!this.isValidSolanaPublicKey(walletAddress)) {
-      throw new BadRequestException('Invalid Solana public key format');
+    if (!this.isValidWalletAddress(walletAddress)) {
+      throw new BadRequestException('Invalid wallet address format');
     }
     const nonce = randomUUID().replace(/-/g, '');
     const now = Date.now();
@@ -113,8 +113,12 @@ export class AuthService {
     };
   }
 
-  private isValidSolanaPublicKey(address: string): boolean {
-    return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
+  private isValidWalletAddress(address: string): boolean {
+    // Solana: Base58, 32-44 chars
+    const isSolana = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
+    // Stellar: Base32, starts with G, 56 chars
+    const isStellar = /^G[A-Z2-7]{55}$/.test(address);
+    return isSolana || isStellar;
   }
 
   async getMe(walletAddress: string): Promise<{ walletAddress: string; referralCode: string; email: string | null; isContactable: boolean; joinedAt: string } | null> {

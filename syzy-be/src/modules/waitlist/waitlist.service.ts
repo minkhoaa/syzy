@@ -41,8 +41,8 @@ export class WaitlistService {
   }
 
   async requestChallenge(walletAddress: string): Promise<ChallengeResponseDto> {
-    if (!this.isValidSolanaPublicKey(walletAddress)) {
-      throw new BadRequestException('Invalid Solana public key format');
+    if (!this.isValidWalletAddress(walletAddress)) {
+      throw new BadRequestException('Invalid wallet address format');
     }
     const nonce = randomUUID().replace(/-/g, '');
     const now = Date.now();
@@ -66,8 +66,12 @@ export class WaitlistService {
     return valid;
   }
 
-  private isValidSolanaPublicKey(address: string): boolean {
-    return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
+  private isValidWalletAddress(address: string): boolean {
+    // Solana: Base58, 32-44 chars
+    const isSolana = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
+    // Stellar: Base32, starts with G, 56 chars
+    const isStellar = /^G[A-Z2-7]{55}$/.test(address);
+    return isSolana || isStellar;
   }
 
   private normalizeEmail(email: string): string {
@@ -109,8 +113,8 @@ export class WaitlistService {
   }
 
   async registerWallet(dto: RegisterWalletDto): Promise<{ id: string; referralCode: string; success: boolean; alreadyRegistered: boolean }> {
-    if (!this.isValidSolanaPublicKey(dto.walletAddress)) {
-      throw new BadRequestException('Invalid Solana public key format');
+    if (!this.isValidWalletAddress(dto.walletAddress)) {
+      throw new BadRequestException('Invalid wallet address format');
     }
 
     const signatureValid = await this.verifyChallengeSignature(dto.walletAddress, dto.signedChallenge);

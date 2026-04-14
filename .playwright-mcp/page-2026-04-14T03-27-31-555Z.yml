@@ -1,0 +1,86 @@
+- generic [ref=e1]:
+  - generic [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: Early Access
+      - heading "Predict Invisible. Win Visible." [level=1] [ref=e9]:
+        - text: Predict Invisible.
+        - text: Win Visible.
+      - paragraph [ref=e10]: Join the Syzy waitlist to get priority access. Connect your wallet, earn referral points, and secure your spot at the top.
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - paragraph [ref=e14]: Join the waitlist
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - img [ref=e18]
+            - heading "Connect your Stellar wallet" [level=3] [ref=e21]
+            - paragraph [ref=e22]: Syzy uses wallet-based verification. Connect a Stellar wallet to secure your spot and get a referral link immediately. We'll ask for your email after verification to deliver your access code.
+          - button "Connect Stellar wallet" [active] [ref=e23] [cursor=pointer]:
+            - img
+            - text: Connect Stellar wallet
+          - paragraph [ref=e24]: Powered by Freighter, Albedo, or any Stellar-compatible wallet.
+      - generic [ref=e25]:
+        - paragraph [ref=e26]: How it works
+        - generic [ref=e27]:
+          - img [ref=e29]
+          - heading "Climb the queue with referrals" [level=4] [ref=e32]
+          - paragraph [ref=e33]: Every friend who connects their wallet using your link moves you up. The more successful referrals, the higher you rank.
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - generic [ref=e37]: "1"
+              - generic [ref=e38]: Share your unique referral link
+            - generic [ref=e39]:
+              - generic [ref=e41]: "2"
+              - generic [ref=e42]: Friend connects their Stellar wallet
+            - generic [ref=e43]:
+              - generic [ref=e45]: "3"
+              - generic [ref=e46]: You move up the waitlist queue
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - generic [ref=e53]: Top referrers get priority early access
+    - generic [ref=e55]:
+      - paragraph [ref=e58]: Frequently asked
+      - generic [ref=e60]:
+        - button "How does the queue ranking work?" [ref=e62] [cursor=pointer]:
+          - generic [ref=e63]: How does the queue ranking work?
+          - img [ref=e64]
+        - button "What counts as a successful referral?" [ref=e67] [cursor=pointer]:
+          - generic [ref=e68]: What counts as a successful referral?
+          - img [ref=e69]
+        - button "When will I get access?" [ref=e72] [cursor=pointer]:
+          - generic [ref=e73]: When will I get access?
+          - img [ref=e74]
+        - button "Do I need a specific wallet?" [ref=e77] [cursor=pointer]:
+          - generic [ref=e78]: Do I need a specific wallet?
+          - img [ref=e79]
+        - button "Is my email required?" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]: Is my email required?
+          - img [ref=e84]
+  - region "Notifications alt+T"
+  - alertdialog [ref=e89]:
+    - generic:
+      - generic [ref=e91]:
+        - generic:
+          - button [ref=e93] [cursor=pointer]:
+            - img [ref=e95]
+          - generic [ref=e99]: Connect Wallet
+          - button [ref=e101] [cursor=pointer]:
+            - img [ref=e103]
+      - link "UX by" [ref=e117] [cursor=pointer]:
+        - /url: https://reown.com
+        - generic [ref=e118]:
+          - generic:
+            - generic [ref=e120]: UX by
+            - img [ref=e122]
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - img
+      - generic [ref=e135]:
+        - generic:
+          - generic [ref=e136]:
+            - generic:
+              - img [ref=e139]
+              - generic [ref=e142]: Project ID Missing
+          - img [ref=e144] [cursor=pointer]
+  - alert [ref=e86]
