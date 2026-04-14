@@ -1,28 +1,34 @@
+# Syzy Development Docker Compose
+# Usage: docker compose up -d
+
 services:
+  # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
     container_name: syzy-postgres
-    restart: always
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: syzy
-      POSTGRES_PASSWORD: syzy
-      POSTGRES_DB: syzy_waitlist
+      POSTGRES_USER: ${POSTGRES_USER:-syzy}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-syzy}
+      POSTGRES_DB: ${POSTGRES_DB:-syzy_waitlist}
     ports:
       - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U syzy -d syzy_waitlist"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-syzy} -d ${POSTGRES_DB:-syzy_waitlist}"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
       - syzy-network
 
+  # Redis Cache
   redis:
     image: redis:7-alpine
     container_name: syzy-redis
-    restart: always
+    restart: unless-stopped
+    command: redis-server --appendonly yes
     ports:
       - "6381:6379"
     volumes:
@@ -35,27 +41,28 @@ services:
     networks:
       - syzy-network
 
+  # Backend API (NestJS)
   backend:
     build:
       context: ./syzy-be
       dockerfile: Dockerfile
     container_name: syzy-backend
-    restart: always
+    restart: unless-stopped
     ports:
       - "7788:7788"
     environment:
-      - NODE_ENV=production
-      - PORT=7788
-      - DATABASE_URL=postgresql://syzy:syzy@postgres:5432/syzy_waitlist
-      - REDIS_URL=redis://redis:6379
-      - RESEND_API_KEY=${RESEND_API_KEY:-}
-      - EMAIL_FROM=${EMAIL_FROM:-admin@syzy.space}
-      - WAITLIST_APP_ORIGIN=${WAITLIST_APP_ORIGIN:-http://localhost:3000}
-      - WAITLIST_APP_DOMAIN=${WAITLIST_APP_DOMAIN:-localhost}
-      - WAITLIST_MEMBER_JWT_SECRET=${WAITLIST_MEMBER_JWT_SECRET:-syzy-waitlist-member-secret-32chars-minimum}
-      - WAITLIST_ADMIN_JWT_SECRET=${WAITLIST_ADMIN_JWT_SECRET:-syzy-waitlist-admin-secret-32chars-minimum}
-      - WAITLIST_MEMBER_REFRESH_SECRET=${WAITLIST_MEMBER_REFRESH_SECRET:-syzy-waitlist-member-refresh-32chars-minimum}
-      - WAITLIST_ADMIN_REFRESH_SECRET=${WAITLIST_ADMIN_REFRESH_SECRET:-syzy-waitlist-admin-refresh-32chars-minimum}
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 7788
+      DATABASE_URL: postgresql://${POSTGRES_USER:-syzy}:${POSTGRES_PASSWORD:-syzy}@postgres:5432/${POSTGRES_DB:-syzy_waitlist}
+      REDIS_URL: redis://redis:6379
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      EMAIL_FROM: ${EMAIL_FROM:-admin@syzy.space}
+      WAITLIST_APP_ORIGIN: ${WAITLIST_APP_ORIGIN:-http://localhost:3000}
+      WAITLIST_APP_DOMAIN: ${WAITLIST_APP_DOMAIN:-localhost}
+      WAITLIST_MEMBER_JWT_SECRET: ${WAITLIST_MEMBER_JWT_SECRET:-dev-member-jwt-secret-32chars}
+      WAITLIST_ADMIN_JWT_SECRET: ${WAITLIST_ADMIN_JWT_SECRET:-dev-admin-jwt-secret-32chars}
+      WAITLIST_MEMBER_REFRESH_SECRET: ${WAITLIST_MEMBER_REFRESH_SECRET:-dev-member-refresh-32chars}
+      WAITLIST_ADMIN_REFRESH_SECRET: ${WAITLIST_ADMIN_REFRESH_SECRET:-dev-admin-refresh-32chars}
     depends_on:
       postgres:
         condition: service_healthy
@@ -70,22 +77,24 @@ services:
     networks:
       - syzy-network
 
+  # Frontend (Next.js)
   frontend:
     build:
       context: ./syzy-fe
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:7788}
+        NEXT_PUBLIC_RPC_URL: ${NEXT_PUBLIC_RPC_URL:-https://api.devnet.solana.com}
+        NEXT_PUBLIC_REOWN_PROJECT_ID: ${NEXT_PUBLIC_REOWN_PROJECT_ID:-}
+        NEXT_PUBLIC_PROGRAM_ID: ${NEXT_PUBLIC_PROGRAM_ID:-}
+        NEXT_PUBLIC_WAITLIST_API_URL: ${NEXT_PUBLIC_WAITLIST_API_URL:-http://localhost:7788}
     container_name: syzy-frontend
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:7788}
-      - NEXT_PUBLIC_RPC_URL=${NEXT_PUBLIC_RPC_URL:-https://api.devnet.solana.com}
-      - NEXT_PUBLIC_REOWN_PROJECT_ID=${NEXT_PUBLIC_REOWN_PROJECT_ID:-}
-      - NEXT_PUBLIC_PROGRAM_ID=${NEXT_PUBLIC_PROGRAM_ID:-}
-      - NEXT_PUBLIC_WAITLIST_API_URL=${NEXT_PUBLIC_WAITLIST_API_URL:-http://localhost:7788}
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: 1
     depends_on:
       backend:
         condition: service_healthy
@@ -94,7 +103,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 30s
+      start_period: 60s
     networks:
       - syzy-network
 

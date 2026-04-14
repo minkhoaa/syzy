@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: syzy_waitlist
+      POSTGRES_USER: syzy
+      POSTGRES_PASSWORD: syzy
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6381:6379"
+volumes:
+  postgres_data:

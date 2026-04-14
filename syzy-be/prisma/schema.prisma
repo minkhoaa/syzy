@@ -1,0 +1,93 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model WaitlistEntry {
+  id                           String         @id @default(cuid())
+  email                        String?        @unique
+  walletAddress                String?        @unique
+  walletProvider               String?
+  referralCode                 String?        @unique
+  referredById                 String?
+  referredBy                   WaitlistEntry? @relation("ReferralTree", fields: [referredById], references: [id])
+  referrals                    WaitlistEntry[] @relation("ReferralTree")
+  successfulReferralCount      Int            @default(0)
+  status                       String         @default("PENDING")
+  source                       String?
+  createdAt                    DateTime       @default(now())
+  updatedAt                    DateTime       @updatedAt
+  confirmedAt                  DateTime?
+  lastConfirmationEmailSentAt DateTime?
+  lastAccessEmailSentAt        DateTime?
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         String    @default("ANALYST")
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model AccessCode {
+  id                   String   @id @default(cuid())
+  code                 String   @unique
+  type                 String
+  maxActivations       Int
+  activationCount      Int      @default(0)
+  status               String   @default("ACTIVE")
+  parentCodeId         String?
+  issuedToWaitlistEntryId String?
+  issuedByAdminId      String?
+  expiresAt            DateTime?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model AccessCodeRedemption {
+  id            String   @id @default(cuid())
+  accessCodeId  String
+  redeemerEmail String
+  metadata      Json?
+  createdAt     DateTime @default(now())
+}
+
+model EmailDispatch {
+  id                String   @id @default(cuid())
+  waitlistEntryId   String
+  templateType      String
+  providerMessageId String?
+  status            String   @default("PENDING")
+  errorMessage      String?
+  sentAt            DateTime?
+  createdAt         DateTime @default(now())
+}
+
+model CampaignRun {
+  id                String   @id @default(cuid())
+  name              String
+  status            String   @default("PENDING")
+  startedAt         DateTime?
+  completedAt       DateTime?
+  requestedByAdminId String?
+  targetedCount     Int      @default(0)
+  sentCount         Int      @default(0)
+  failedCount       Int      @default(0)
+  skippedCount      Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model AdminConfig {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,105 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+pnpm-lock.yaml.bak
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Docker
+.docker/
+
+# Prisma
+syzy-be/prisma/*.db
+syzy-be/prisma/*.db-journal
+
+# Playwright
+syzy-fe/playwright-report/
+syzy-fe/playwright/.cache/
+syzy-fe/test-results/
+
+# Next.js
+syzy-fe/.next/
+syzy-fe/.vercel/
+
+# Turbo
+.turbo/
+
+# Debug
+*.pid
+*.seed
+*.pid.lock
+
+# Generated files (kubb API client)
+syzy-fe/lib/api-client/
+syzy-fe/temp-openapi.json
+
+# Archive/backup files
+syzy-fe/stored-for-furture/
+
+# Docusaurus build & lock
+syzy-fe/docs/.docusaurus/
+syzy-fe/docs/build/
+syzy-fe/docs/package-lock.json
+
+# Docusaurus default/example content
+syzy-fe/docs/blog/
+syzy-fe/docs/example/
+
+# Planning/spec files (internal only)
+syzy-fe/docs/superpowers/
+syzy-fe/docs/research/
+syzy-fe/docs/plan/
+
+# PDF and large binary files in docs
+syzy-fe/docs/*.pdf
+
+# Misc
+.superpowers/
+.codex
+.cache/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Secrets (extra safety)
+*.pem
+*.key
+secrets/

@@ -1,0 +1,8687 @@
+{
+  "address": "HEmsoVhRJT4DRmGqZPk136eSLFPNRi6RmMqFNk4eJsVN",
+  "metadata": {
+    "name": "prediction_market",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "accept_authority",
+      "discriminator": [
+        107,
+        86,
+        198,
+        91,
+        33,
+        12,
+        107,
+        160
+      ],
+      "accounts": [
+        {
+          "name": "new_admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "add_liquidity",
+      "discriminator": [
+        181,
+        157,
+        89,
+        67,
+        143,
+        182,
+        52,
+        72
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "team_wallet",
+          "writable": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "user_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "add_market_to_group",
+      "docs": [
+        "Add an existing market to a group (admin only)"
+      ],
+      "discriminator": [
+        16,
+        123,
+        193,
+        117,
+        168,
+        99,
+        47,
+        86
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "market_group",
+          "writable": true
+        },
+        {
+          "name": "market"
+        },
+        {
+          "name": "group_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  103,
+                  114,
+                  111,
+                  117,
+                  112,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market_group"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "claim_void_refund",
+      "docs": [
+        "Claim proportional refund from a voided market (any user with tokens)"
+      ],
+      "discriminator": [
+        216,
+        90,
+        25,
+        165,
+        100,
+        32,
+        61,
+        189
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "user_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_winnings",
+      "discriminator": [
+        161,
+        215,
+        24,
+        59,
+        14,
+        236,
+        242,
+        221
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "user_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_winnings_v2",
+      "docs": [
+        "Claim winnings from a v1 market (fixed face-value payout, burns winning tokens)"
+      ],
+      "discriminator": [
+        184,
+        77,
+        105,
+        92,
+        126,
+        80,
+        168,
+        189
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_mint"
+              },
+              {
+                "kind": "account",
+                "path": "no_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_v1_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  118,
+                  49,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "yes_mint",
+          "writable": true
+        },
+        {
+          "name": "no_mint",
+          "writable": true
+        },
+        {
+          "name": "user_winning_ata",
+          "writable": true
+        },
+        {
+          "name": "user_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "configure",
+      "discriminator": [
+        245,
+        7,
+        108,
+        117,
+        95,
+        196,
+        54,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_config",
+          "type": {
+            "defined": {
+              "name": "Config"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "convert_positions",
+      "docs": [
+        "Convert NO on k selected markets → SOL + YES on remaining (N-k) markets"
+      ],
+      "discriminator": [
+        50,
+        72,
+        169,
+        118,
+        215,
+        220,
+        138,
+        189
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_group"
+        },
+        {
+          "name": "group_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  103,
+                  114,
+                  111,
+                  117,
+                  112,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market_group"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "pairs",
+          "type": "u64"
+        },
+        {
+          "name": "selected_market_indices",
+          "type": "bytes"
+        }
+      ]
+    },
+    {
+      "name": "create_market",
+      "discriminator": [
+        103,
+        226,
+        97,
+        235,
+        200,
+        188,
+        251,
+        254
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "yes_token",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "clock",
+          "docs": [
+            "Clock for created_at timestamp"
+          ],
+          "address": "SysvarC1ock11111111111111111111111111111111"
+        },
+        {
+          "name": "global_yes_token_account",
+          "writable": true
+        },
+        {
+          "name": "global_no_ata",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "team_wallet",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "CreateMarketParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_market_group",
+      "docs": [
+        "Create a new market group (admin only)"
+      ],
+      "discriminator": [
+        233,
+        144,
+        194,
+        255,
+        240,
+        250,
+        129,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "market_group",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "CreateMarketGroupParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_market_v2",
+      "docs": [
+        "Create a v1 market with conditional token model (fixed face-value payouts)"
+      ],
+      "discriminator": [
+        193,
+        18,
+        155,
+        62,
+        161,
+        124,
+        80,
+        25
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "yes_token",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "no_token",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_v1_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  118,
+                  49,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "clock",
+          "address": "SysvarC1ock11111111111111111111111111111111"
+        },
+        {
+          "name": "global_yes_ata",
+          "writable": true
+        },
+        {
+          "name": "global_no_ata",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "team_wallet",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "CreateMarketV2Params"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deposit_collateral",
+      "docs": [
+        "Deposit SOL collateral to mint equal YES+NO token pairs"
+      ],
+      "discriminator": [
+        156,
+        131,
+        142,
+        116,
+        146,
+        247,
+        162,
+        120
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_mint"
+              },
+              {
+                "kind": "account",
+                "path": "no_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_v1_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  118,
+                  49,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "yes_mint",
+          "writable": true
+        },
+        {
+          "name": "no_mint",
+          "writable": true
+        },
+        {
+          "name": "user_yes_ata",
+          "writable": true
+        },
+        {
+          "name": "user_no_ata",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deregister_tee",
+      "docs": [
+        "Deregister a TEE operator pubkey (admin only)"
+      ],
+      "discriminator": [
+        205,
+        240,
+        4,
+        255,
+        67,
+        221,
+        50,
+        50
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "tee_registry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  101,
+                  95,
+                  114,
+                  101,
+                  103,
+                  105,
+                  115,
+                  116,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "operator",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "group_merge_collateral",
+      "docs": [
+        "Burn YES tokens from ALL N markets → receive SOL"
+      ],
+      "discriminator": [
+        31,
+        169,
+        115,
+        90,
+        93,
+        247,
+        22,
+        146
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_group"
+        },
+        {
+          "name": "group_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  103,
+                  114,
+                  111,
+                  117,
+                  112,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market_group"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        }
+      ],
+      "args": [
+        {
+          "name": "pairs",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "group_split_collateral",
+      "docs": [
+        "Deposit SOL → receive YES tokens on ALL N markets in the group"
+      ],
+      "discriminator": [
+        149,
+        23,
+        212,
+        60,
+        143,
+        51,
+        247,
+        102
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_group"
+        },
+        {
+          "name": "group_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  103,
+                  114,
+                  111,
+                  117,
+                  112,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market_group"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_child_shard",
+      "docs": [
+        "Initialize a child shard with dynamic prefix (for manual shard creation)"
+      ],
+      "discriminator": [
+        245,
+        85,
+        80,
+        171,
+        198,
+        226,
+        203,
+        246
+      ],
+      "accounts": [
+        {
+          "name": "shard",
+          "writable": true
+        },
+        {
+          "name": "config",
+          "docs": [
+            "Config account for authority verification"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "pool_identifier",
+          "type": {
+            "array": [
+              "u8",
+              16
+            ]
+          }
+        },
+        {
+          "name": "prefix_len",
+          "type": "u8"
+        },
+        {
+          "name": "prefix",
+          "type": {
+            "array": [
+              "u8",
+              8
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize_group_config",
+      "docs": [
+        "Initialize NegRisk config for a mutually exclusive market group (admin only)"
+      ],
+      "discriminator": [
+        218,
+        62,
+        50,
+        190,
+        163,
+        16,
+        225,
+        116
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "market_group"
+        },
+        {
+          "name": "group_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  103,
+                  114,
+                  111,
+                  117,
+                  112,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market_group"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_shard_0",
+      "docs": [
+        "Initialize the first nullifier shard (prefix = [0])"
+      ],
+      "discriminator": [
+        115,
+        98,
+        101,
+        162,
+        192,
+        38,
+        170,
+        247
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shard0",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_shard_1",
+      "docs": [
+        "Initialize the second nullifier shard (prefix = [1])"
+      ],
+      "discriminator": [
+        125,
+        11,
+        129,
+        88,
+        225,
+        155,
+        85,
+        250
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shard1",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_shielded_pool",
+      "docs": [
+        "Initialize a shielded pool for a prediction market"
+      ],
+      "discriminator": [
+        255,
+        153,
+        109,
+        198,
+        182,
+        107,
+        0,
+        109
+      ],
+      "accounts": [
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market to link the shielded pool to"
+          ],
+          "writable": true
+        },
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "leaves_indexer",
+          "docs": [
+            "Leaves indexer PDA (for tracking batches)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "subtree_indexer",
+          "docs": [
+            "Subtree indexer PDA (for tracking small trees)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Authority creating the pool (must be market creator or global admin)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "identifier",
+          "type": {
+            "array": [
+              "u8",
+              16
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize_tee_registry",
+      "docs": [
+        "Initialize the TEE registry (admin only, one-time)"
+      ],
+      "discriminator": [
+        242,
+        223,
+        18,
+        234,
+        159,
+        214,
+        115,
+        201
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "tee_registry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  101,
+                  95,
+                  114,
+                  101,
+                  103,
+                  105,
+                  115,
+                  116,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "mint_no_token",
+      "discriminator": [
+        198,
+        161,
+        208,
+        188,
+        122,
+        69,
+        236,
+        128
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "no_token",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "global_no_token_account",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "no_symbol",
+          "type": "string"
+        },
+        {
+          "name": "no_uri",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "nominate_authority",
+      "discriminator": [
+        148,
+        182,
+        144,
+        91,
+        186,
+        12,
+        118,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "private_claim",
+      "docs": [
+        "Private claim: claim winnings anonymously after resolution"
+      ],
+      "discriminator": [
+        117,
+        213,
+        23,
+        34,
+        170,
+        240,
+        18,
+        80
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market (must be resolved)"
+          ]
+        },
+        {
+          "name": "nullifier_shard",
+          "docs": [
+            "Nullifier shard for the token position commitment"
+          ],
+          "writable": true
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User submitting the proof"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "dummy0_account",
+          "writable": true
+        },
+        {
+          "name": "dummy1_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              113
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "private_claim_v2",
+      "docs": [
+        "Private claim v2: auto-detects v0/v1 payout model"
+      ],
+      "discriminator": [
+        93,
+        109,
+        119,
+        78,
+        49,
+        171,
+        141,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market (must be resolved)"
+          ]
+        },
+        {
+          "name": "market_v1_config",
+          "docs": [
+            "If account has no data or wrong owner → v0 market (uses proportional payout)."
+          ]
+        },
+        {
+          "name": "nullifier_shard",
+          "docs": [
+            "Nullifier shard for the token position commitment"
+          ],
+          "writable": true
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User submitting the proof"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "dummy0_account",
+          "writable": true
+        },
+        {
+          "name": "dummy1_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              113
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "private_sell",
+      "discriminator": [
+        91,
+        99,
+        77,
+        191,
+        142,
+        178,
+        4,
+        1
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market (for AMM calculations)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "nullifier_shard",
+          "docs": [
+            "Nullifier shard for the token note being spent"
+          ],
+          "writable": true
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User submitting the proof"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "dummy0_account",
+          "writable": true
+        },
+        {
+          "name": "dummy1_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              113
+            ]
+          }
+        },
+        {
+          "name": "min_sol_output",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "private_shield",
+      "docs": [
+        "Shield (deposit) SOL into the private pool"
+      ],
+      "discriminator": [
+        165,
+        92,
+        26,
+        245,
+        234,
+        55,
+        225,
+        150
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool to deposit into"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "depositor",
+          "docs": [
+            "The depositor (VIP whale)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              72
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "private_shield_double",
+      "docs": [
+        "Shield (deposit) SOL with double-leaf (split deposit)"
+      ],
+      "discriminator": [
+        217,
+        22,
+        188,
+        162,
+        172,
+        7,
+        239,
+        186
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "depositor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              72
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "private_swap",
+      "docs": [
+        "Private swap: exchange shielded SOL for YES/NO tokens"
+      ],
+      "discriminator": [
+        0,
+        136,
+        191,
+        38,
+        155,
+        252,
+        102,
+        193
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market (for AMM calculations)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "nullifier_shard",
+          "docs": [
+            "Nullifier shard for the old SOL commitment"
+          ],
+          "writable": true
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User submitting the proof (can be anyone, including a relayer)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "dummy0_account",
+          "writable": true
+        },
+        {
+          "name": "dummy1_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              113
+            ]
+          }
+        },
+        {
+          "name": "min_token_output",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "private_unshield",
+      "docs": [
+        "Unshield (withdraw) SOL from the private pool"
+      ],
+      "discriminator": [
+        136,
+        119,
+        53,
+        211,
+        234,
+        38,
+        77,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "nullifier_shard",
+          "docs": [
+            "Nullifier shard for the SOL commitment"
+          ],
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The user withdrawing funds (must sign)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "dummy0_account",
+          "writable": true
+        },
+        {
+          "name": "dummy1_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              104
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "private_unshield_on_behalf",
+      "docs": [
+        "Unshield on behalf (relayer-assisted withdrawal to any address)"
+      ],
+      "discriminator": [
+        254,
+        53,
+        175,
+        115,
+        107,
+        38,
+        82,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "nullifier_shard",
+          "docs": [
+            "Nullifier shard"
+          ],
+          "writable": true
+        },
+        {
+          "name": "withdrawer",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The relayer paying transaction fees (must sign)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "dummy0_account",
+          "writable": true
+        },
+        {
+          "name": "dummy1_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              104
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "register_tee",
+      "docs": [
+        "Register a TEE operator pubkey (admin only)"
+      ],
+      "discriminator": [
+        60,
+        216,
+        220,
+        191,
+        160,
+        5,
+        153,
+        133
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "tee_registry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  101,
+                  95,
+                  114,
+                  101,
+                  103,
+                  105,
+                  115,
+                  116,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "operator",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "remove_market_from_group",
+      "docs": [
+        "Remove a market from a group (admin only, before resolution)"
+      ],
+      "discriminator": [
+        221,
+        171,
+        81,
+        236,
+        221,
+        229,
+        233,
+        29
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "market_group",
+          "writable": true
+        },
+        {
+          "name": "market"
+        },
+        {
+          "name": "group_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  103,
+                  114,
+                  111,
+                  117,
+                  112,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market_group"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "reset_shards",
+      "docs": [
+        "Reset nullifier shards (admin only)"
+      ],
+      "discriminator": [
+        126,
+        86,
+        126,
+        180,
+        222,
+        55,
+        241,
+        56
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "shard0",
+          "docs": [
+            "L5 FIX: PDA validation ensures shards belong to this pool"
+          ],
+          "writable": true
+        },
+        {
+          "name": "shard1",
+          "docs": [
+            "L5 FIX: PDA validation ensures shards belong to this pool"
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "resolution",
+      "discriminator": [
+        149,
+        113,
+        222,
+        19,
+        243,
+        191,
+        14,
+        10
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "yes_amount",
+          "type": "u64"
+        },
+        {
+          "name": "no_amount",
+          "type": "u64"
+        },
+        {
+          "name": "token_type",
+          "type": "u8"
+        },
+        {
+          "name": "is_completed",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "resolution_early",
+      "docs": [
+        "Resolve a market early (before end_date) — for markets synced from external platforms"
+      ],
+      "discriminator": [
+        57,
+        198,
+        208,
+        193,
+        8,
+        111,
+        250,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "yes_amount",
+          "type": "u64"
+        },
+        {
+          "name": "no_amount",
+          "type": "u64"
+        },
+        {
+          "name": "token_type",
+          "type": "u8"
+        },
+        {
+          "name": "is_completed",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "resolve_group_market",
+      "docs": [
+        "Admin manual resolution of a market within a group (cascades if mutually exclusive + YES)"
+      ],
+      "discriminator": [
+        131,
+        213,
+        156,
+        119,
+        140,
+        66,
+        159,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "market_group",
+          "writable": true
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The specific market in the group being resolved"
+          ],
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "winning_outcome",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "resolve_group_via_oracle",
+      "docs": [
+        "Permissionless oracle resolution for all sub-markets in a group"
+      ],
+      "discriminator": [
+        45,
+        179,
+        252,
+        16,
+        211,
+        2,
+        216,
+        7
+      ],
+      "accounts": [
+        {
+          "name": "market_group",
+          "writable": true
+        },
+        {
+          "name": "oracle_feed"
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "Anyone can trigger resolution (permissionless)"
+          ],
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "resolve_via_oracle",
+      "docs": [
+        "Resolve a market via Switchboard oracle feed (permissionless — anyone can call)"
+      ],
+      "discriminator": [
+        111,
+        135,
+        45,
+        223,
+        89,
+        204,
+        7,
+        139
+      ],
+      "accounts": [
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "oracle_feed"
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "Anyone can call this instruction (permissionless resolution)"
+          ],
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_sp1_vkey",
+      "docs": [
+        "Set SP1 verification key hash (admin only)"
+      ],
+      "discriminator": [
+        216,
+        199,
+        21,
+        183,
+        208,
+        154,
+        223,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "vkey_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "split_shard",
+      "docs": [
+        "Split a full nullifier shard into two child shards"
+      ],
+      "discriminator": [
+        96,
+        45,
+        240,
+        120,
+        41,
+        111,
+        138,
+        86
+      ],
+      "accounts": [
+        {
+          "name": "parent_shard",
+          "docs": [
+            "The parent shard to split (will be closed)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "left_child",
+          "docs": [
+            "Left child shard (prefix + 0)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "right_child",
+          "docs": [
+            "Right child shard (prefix + 1)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "pool_identifier",
+          "type": {
+            "array": [
+              "u8",
+              16
+            ]
+          }
+        },
+        {
+          "name": "parent_prefix_len",
+          "type": "u8"
+        },
+        {
+          "name": "parent_prefix",
+          "type": {
+            "array": [
+              "u8",
+              8
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "split_token_note",
+      "docs": [
+        "Split a token note into two smaller notes (for partial selling)"
+      ],
+      "discriminator": [
+        203,
+        68,
+        245,
+        93,
+        150,
+        107,
+        248,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "nullifier_shard",
+          "docs": [
+            "Nullifier shard for the token note being spent"
+          ],
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User submitting the proof"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instruction_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "dummy0_account",
+          "writable": true
+        },
+        {
+          "name": "dummy1_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        },
+        {
+          "name": "public_inputs",
+          "type": {
+            "array": [
+              "u8",
+              153
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "swap",
+      "discriminator": [
+        248,
+        198,
+        158,
+        145,
+        225,
+        117,
+        135,
+        200
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "team_wallet",
+          "writable": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "global_yes_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "global_vault"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  238,
+                  117,
+                  143,
+                  222,
+                  24,
+                  66,
+                  93,
+                  188,
+                  228,
+                  108,
+                  205,
+                  218,
+                  182,
+                  26,
+                  252,
+                  77,
+                  131,
+                  185,
+                  13,
+                  39,
+                  254,
+                  189,
+                  249,
+                  40,
+                  216,
+                  161,
+                  139,
+                  252
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "global_no_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "global_vault"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  238,
+                  117,
+                  143,
+                  222,
+                  24,
+                  66,
+                  93,
+                  188,
+                  228,
+                  108,
+                  205,
+                  218,
+                  182,
+                  26,
+                  252,
+                  77,
+                  131,
+                  185,
+                  13,
+                  39,
+                  254,
+                  189,
+                  249,
+                  40,
+                  216,
+                  161,
+                  139,
+                  252
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "user_yes_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  238,
+                  117,
+                  143,
+                  222,
+                  24,
+                  66,
+                  93,
+                  188,
+                  228,
+                  108,
+                  205,
+                  218,
+                  182,
+                  26,
+                  252,
+                  77,
+                  131,
+                  185,
+                  13,
+                  39,
+                  254,
+                  189,
+                  249,
+                  40,
+                  216,
+                  161,
+                  139,
+                  252
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "user_no_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  238,
+                  117,
+                  143,
+                  222,
+                  24,
+                  66,
+                  93,
+                  188,
+                  228,
+                  108,
+                  205,
+                  218,
+                  182,
+                  26,
+                  252,
+                  77,
+                  131,
+                  185,
+                  13,
+                  39,
+                  254,
+                  189,
+                  249,
+                  40,
+                  216,
+                  161,
+                  139,
+                  252
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "user_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "reward_pool_vault",
+          "docs": [
+            "Validated against global_config.reward_pool_vault."
+          ],
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "direction",
+          "type": "u8"
+        },
+        {
+          "name": "token_type",
+          "type": "u8"
+        },
+        {
+          "name": "minimum_receive_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "swap_v2",
+      "docs": [
+        "Swap YES<->NO tokens in a v1 market (no SOL moves)"
+      ],
+      "discriminator": [
+        43,
+        4,
+        237,
+        11,
+        26,
+        201,
+        30,
+        98
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_mint"
+              },
+              {
+                "kind": "account",
+                "path": "no_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_v1_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  118,
+                  49,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "yes_mint"
+        },
+        {
+          "name": "no_mint"
+        },
+        {
+          "name": "user_yes_ata",
+          "writable": true
+        },
+        {
+          "name": "user_no_ata",
+          "writable": true
+        },
+        {
+          "name": "global_yes_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "global_vault"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  238,
+                  117,
+                  143,
+                  222,
+                  24,
+                  66,
+                  93,
+                  188,
+                  228,
+                  108,
+                  205,
+                  218,
+                  182,
+                  26,
+                  252,
+                  77,
+                  131,
+                  185,
+                  13,
+                  39,
+                  254,
+                  189,
+                  249,
+                  40,
+                  216,
+                  161,
+                  139,
+                  252
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "global_no_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "global_vault"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  238,
+                  117,
+                  143,
+                  222,
+                  24,
+                  66,
+                  93,
+                  188,
+                  228,
+                  108,
+                  205,
+                  218,
+                  182,
+                  26,
+                  252,
+                  77,
+                  131,
+                  185,
+                  13,
+                  39,
+                  254,
+                  189,
+                  249,
+                  40,
+                  216,
+                  161,
+                  139,
+                  252
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "no_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "min_amount_out",
+          "type": "u64"
+        },
+        {
+          "name": "buy_yes",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "sync_user_info",
+      "docs": [
+        "Sync UserInfo PDA from actual ATA token balances (permissionless)"
+      ],
+      "discriminator": [
+        144,
+        155,
+        167,
+        199,
+        234,
+        145,
+        164,
+        199
+      ],
+      "accounts": [
+        {
+          "name": "market",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_mint"
+              },
+              {
+                "kind": "account",
+                "path": "no_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "yes_mint"
+        },
+        {
+          "name": "no_mint"
+        },
+        {
+          "name": "user_yes_ata"
+        },
+        {
+          "name": "user_no_ata"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "tee_batch_claim",
+      "docs": [
+        "TEE batch claim: SP1-verified batch claim of shielded winning notes"
+      ],
+      "discriminator": [
+        95,
+        180,
+        17,
+        145,
+        244,
+        160,
+        253,
+        55
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market (must be resolved for claims)"
+          ]
+        },
+        {
+          "name": "market_v1_config"
+        },
+        {
+          "name": "config",
+          "docs": [
+            "Global program config"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "tee_registry",
+          "docs": [
+            "TEE registry — only registered operators can call this instruction"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  101,
+                  95,
+                  114,
+                  101,
+                  103,
+                  105,
+                  115,
+                  116,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "TEE signer (must be registered in tee_registry)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": "bytes"
+        },
+        {
+          "name": "public_values",
+          "type": "bytes"
+        },
+        {
+          "name": "n_notes",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "tee_batch_claim_and_unshield",
+      "docs": [
+        "TEE batch claim + unshield: claim winnings and send SOL directly to recipient (zero user signatures)"
+      ],
+      "discriminator": [
+        198,
+        89,
+        193,
+        181,
+        204,
+        190,
+        191,
+        89
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market"
+        },
+        {
+          "name": "market_v1_config"
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "tee_registry",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  101,
+                  95,
+                  114,
+                  101,
+                  103,
+                  105,
+                  115,
+                  116,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "TEE signer"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "recipient",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": "bytes"
+        },
+        {
+          "name": "public_values",
+          "type": "bytes"
+        },
+        {
+          "name": "n_notes",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "tee_batch_sell",
+      "docs": [
+        "TEE batch sell: SP1-verified batch sell of shielded token notes"
+      ],
+      "discriminator": [
+        116,
+        90,
+        105,
+        81,
+        218,
+        119,
+        50,
+        26
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "docs": [
+            "The shielded pool"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market (must be active for sells)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "market_v1_config"
+        },
+        {
+          "name": "config",
+          "docs": [
+            "Global program config (for fee BPS and sp1 vkey)"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "tee_registry",
+          "docs": [
+            "TEE registry — only registered operators can call this instruction"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  101,
+                  95,
+                  114,
+                  101,
+                  103,
+                  105,
+                  115,
+                  116,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "TEE signer that submits the batch (must be registered in tee_registry)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": "bytes"
+        },
+        {
+          "name": "public_values",
+          "type": "bytes"
+        },
+        {
+          "name": "min_sol_output",
+          "type": "u64"
+        },
+        {
+          "name": "n_notes",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "tee_batch_sell_and_unshield",
+      "docs": [
+        "TEE batch sell + unshield: sell tokens and send SOL directly to recipient (zero user signatures)"
+      ],
+      "discriminator": [
+        22,
+        168,
+        5,
+        11,
+        31,
+        122,
+        241,
+        88
+      ],
+      "accounts": [
+        {
+          "name": "shielded_pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  104,
+                  105,
+                  101,
+                  108,
+                  100,
+                  101,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "shielded_pool.market",
+                "account": "ShieldedMarketPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "docs": [
+            "The prediction market (must be active for sells)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "market_v1_config"
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "tee_registry",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  101,
+                  95,
+                  114,
+                  101,
+                  103,
+                  105,
+                  115,
+                  116,
+                  114,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "TEE signer"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "recipient",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "proof",
+          "type": "bytes"
+        },
+        {
+          "name": "public_values",
+          "type": "bytes"
+        },
+        {
+          "name": "min_sol_output",
+          "type": "u64"
+        },
+        {
+          "name": "n_notes",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "update_market",
+      "docs": [
+        "Update market metadata fields (admin only)"
+      ],
+      "discriminator": [
+        153,
+        39,
+        2,
+        197,
+        179,
+        50,
+        199,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "UpdateMarketParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "void_market",
+      "docs": [
+        "Void/cancel a market (authority only) — for markets voided on source platforms"
+      ],
+      "discriminator": [
+        243,
+        175,
+        46,
+        124,
+        95,
+        101,
+        39,
+        69
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdraw_collateral",
+      "docs": [
+        "Burn equal YES+NO tokens to withdraw SOL collateral"
+      ],
+      "discriminator": [
+        115,
+        135,
+        168,
+        106,
+        139,
+        214,
+        138,
+        150
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_mint"
+              },
+              {
+                "kind": "account",
+                "path": "no_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "market_v1_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116,
+                  95,
+                  118,
+                  49,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "yes_mint",
+          "writable": true
+        },
+        {
+          "name": "no_mint",
+          "writable": true
+        },
+        {
+          "name": "user_yes_ata",
+          "writable": true
+        },
+        {
+          "name": "user_no_ata",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        }
+      ],
+      "args": [
+        {
+          "name": "pairs",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_liquidity",
+      "discriminator": [
+        149,
+        158,
+        33,
+        185,
+        47,
+        243,
+        253,
+        31
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "team_wallet",
+          "writable": true
+        },
+        {
+          "name": "market",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  97,
+                  114,
+                  107,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "yes_token"
+              },
+              {
+                "kind": "account",
+                "path": "no_token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "yes_token"
+        },
+        {
+          "name": "no_token"
+        },
+        {
+          "name": "user_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  105,
+                  110,
+                  102,
+                  111
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "market"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "BitShard",
+      "discriminator": [
+        207,
+        56,
+        234,
+        182,
+        39,
+        51,
+        204,
+        94
+      ]
+    },
+    {
+      "name": "Config",
+      "discriminator": [
+        155,
+        12,
+        170,
+        224,
+        30,
+        250,
+        204,
+        130
+      ]
+    },
+    {
+      "name": "Market",
+      "discriminator": [
+        219,
+        190,
+        213,
+        55,
+        0,
+        227,
+        198,
+        154
+      ]
+    },
+    {
+      "name": "MarketGroup",
+      "discriminator": [
+        131,
+        205,
+        141,
+        87,
+        148,
+        210,
+        33,
+        36
+      ]
+    },
+    {
+      "name": "MarketGroupConfig",
+      "discriminator": [
+        172,
+        130,
+        192,
+        25,
+        89,
+        202,
+        214,
+        147
+      ]
+    },
+    {
+      "name": "MarketV1Config",
+      "discriminator": [
+        156,
+        76,
+        41,
+        201,
+        109,
+        246,
+        98,
+        76
+      ]
+    },
+    {
+      "name": "ShieldedMarketPool",
+      "discriminator": [
+        201,
+        130,
+        66,
+        252,
+        159,
+        231,
+        76,
+        224
+      ]
+    },
+    {
+      "name": "TeeRegistry",
+      "discriminator": [
+        162,
+        146,
+        204,
+        38,
+        164,
+        220,
+        177,
+        22
+      ]
+    },
+    {
+      "name": "UserInfo",
+      "discriminator": [
+        83,
+        134,
+        200,
+        56,
+        144,
+        56,
+        10,
+        62
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "CompleteEvent",
+      "discriminator": [
+        95,
+        114,
+        97,
+        156,
+        212,
+        46,
+        152,
+        8
+      ]
+    },
+    {
+      "name": "ConvertPositionsEvent",
+      "discriminator": [
+        152,
+        100,
+        208,
+        139,
+        63,
+        48,
+        82,
+        189
+      ]
+    },
+    {
+      "name": "CreateEvent",
+      "discriminator": [
+        27,
+        114,
+        169,
+        77,
+        222,
+        235,
+        99,
+        118
+      ]
+    },
+    {
+      "name": "GlobalUpdateEvent",
+      "discriminator": [
+        153,
+        69,
+        19,
+        7,
+        115,
+        232,
+        248,
+        248
+      ]
+    },
+    {
+      "name": "GroupConfigInitEvent",
+      "discriminator": [
+        48,
+        21,
+        183,
+        111,
+        149,
+        71,
+        22,
+        129
+      ]
+    },
+    {
+      "name": "GroupMergeCollateralEvent",
+      "discriminator": [
+        218,
+        176,
+        31,
+        175,
+        198,
+        129,
+        82,
+        109
+      ]
+    },
+    {
+      "name": "GroupSplitCollateralEvent",
+      "discriminator": [
+        101,
+        120,
+        33,
+        100,
+        234,
+        94,
+        152,
+        8
+      ]
+    },
+    {
+      "name": "MarketGroupOracleResolvedEvent",
+      "discriminator": [
+        212,
+        27,
+        50,
+        88,
+        191,
+        27,
+        64,
+        252
+      ]
+    },
+    {
+      "name": "MarketGroupResolvedEvent",
+      "discriminator": [
+        149,
+        121,
+        229,
+        95,
+        233,
+        247,
+        41,
+        61
+      ]
+    },
+    {
+      "name": "OracleResolutionEvent",
+      "discriminator": [
+        255,
+        237,
+        139,
+        227,
+        23,
+        40,
+        101,
+        42
+      ]
+    },
+    {
+      "name": "SwapFeeEvent",
+      "discriminator": [
+        85,
+        226,
+        67,
+        47,
+        182,
+        177,
+        13,
+        148
+      ]
+    },
+    {
+      "name": "SyncUserInfoEvent",
+      "discriminator": [
+        64,
+        143,
+        136,
+        122,
+        153,
+        185,
+        82,
+        238
+      ]
+    },
+    {
+      "name": "TradeEvent",
+      "discriminator": [
+        189,
+        219,
+        127,
+        211,
+        78,
+        230,
+        97,
+        238
+      ]
+    },
+    {
+      "name": "WithdrawEvent",
+      "discriminator": [
+        22,
+        9,
+        133,
+        26,
+        160,
+        44,
+        71,
+        192
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "ValueTooSmall",
+      "msg": "ValueTooSmall"
+    },
+    {
+      "code": 6001,
+      "name": "ValueTooLarge",
+      "msg": "ValueTooLarge"
+    },
+    {
+      "code": 6002,
+      "name": "ValueInvalid",
+      "msg": "ValueInvalid"
+    },
+    {
+      "code": 6003,
+      "name": "IncorrectConfigAccount",
+      "msg": "IncorrectConfigAccount"
+    },
+    {
+      "code": 6004,
+      "name": "IncorrectAuthority",
+      "msg": "IncorrectAuthority"
+    },
+    {
+      "code": 6005,
+      "name": "OverflowOrUnderflowOccurred",
+      "msg": "Overflow or underflow occured"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidAmount",
+      "msg": "Amount is invalid"
+    },
+    {
+      "code": 6007,
+      "name": "IncorrectTeamWallet",
+      "msg": "Incorrect team wallet address"
+    },
+    {
+      "code": 6008,
+      "name": "CurveNotCompleted",
+      "msg": "Curve is not completed"
+    },
+    {
+      "code": 6009,
+      "name": "CurveAlreadyCompleted",
+      "msg": "Can not swap after the curve is completed"
+    },
+    {
+      "code": 6010,
+      "name": "MintAuthorityEnabled",
+      "msg": "Mint authority should be revoked"
+    },
+    {
+      "code": 6011,
+      "name": "FreezeAuthorityEnabled",
+      "msg": "Freeze authority should be revoked"
+    },
+    {
+      "code": 6012,
+      "name": "ReturnAmountTooSmall",
+      "msg": "Return amount is too small compared to the minimum received amount"
+    },
+    {
+      "code": 6013,
+      "name": "AmmAlreadyExists",
+      "msg": "AMM is already exist"
+    },
+    {
+      "code": 6014,
+      "name": "NotInitialized",
+      "msg": "Global Not Initialized"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidGlobalAuthority",
+      "msg": "Invalid Global Authority"
+    },
+    {
+      "code": 6016,
+      "name": "NotWhiteList",
+      "msg": "This creator is not in whitelist"
+    },
+    {
+      "code": 6017,
+      "name": "IncorrectLaunchPhase",
+      "msg": "IncorrectLaunchPhase"
+    },
+    {
+      "code": 6018,
+      "name": "InsufficientTokens",
+      "msg": "Not enough tokens to complete the sell order."
+    },
+    {
+      "code": 6019,
+      "name": "InsufficientSol",
+      "msg": "Not enough SOL received to be valid."
+    },
+    {
+      "code": 6020,
+      "name": "SellFailed",
+      "msg": "Sell Failed"
+    },
+    {
+      "code": 6021,
+      "name": "BuyFailed",
+      "msg": "Buy Failed"
+    },
+    {
+      "code": 6022,
+      "name": "NotBondingCurveMint",
+      "msg": "This token is not a bonding curve token"
+    },
+    {
+      "code": 6023,
+      "name": "NotSOL",
+      "msg": "Not quote mint"
+    },
+    {
+      "code": 6024,
+      "name": "InvalidMigrationAuthority",
+      "msg": "Invalid Migration Authority"
+    },
+    {
+      "code": 6025,
+      "name": "NotCompleted",
+      "msg": "Bonding curve is not completed"
+    },
+    {
+      "code": 6026,
+      "name": "InvalidMeteoraProgram",
+      "msg": "Invalid Meteora Program"
+    },
+    {
+      "code": 6027,
+      "name": "ArithmeticError",
+      "msg": "Arithmetic Error"
+    },
+    {
+      "code": 6028,
+      "name": "InvalidParameter",
+      "msg": "Invalid Parameter"
+    },
+    {
+      "code": 6029,
+      "name": "StringTooLong",
+      "msg": "Market name or question exceeds max length"
+    },
+    {
+      "code": 6030,
+      "name": "InvalidStartTime",
+      "msg": "Trading has not started yet"
+    },
+    {
+      "code": 6031,
+      "name": "InvalidEndTime",
+      "msg": "Trading period has ended"
+    },
+    {
+      "code": 6032,
+      "name": "AlreadyInitialized",
+      "msg": "Global Already Initialized"
+    },
+    {
+      "code": 6033,
+      "name": "InvalidAuthority",
+      "msg": "Invalid Authority"
+    },
+    {
+      "code": 6034,
+      "name": "InvalidArgument",
+      "msg": "Invalid Argument"
+    },
+    {
+      "code": 6035,
+      "name": "MarketNotCompleted",
+      "msg": "The market has already ended."
+    },
+    {
+      "code": 6036,
+      "name": "MarketIsCompleted",
+      "msg": "The market already ended."
+    },
+    {
+      "code": 6037,
+      "name": "RESOLUTIONTOKEYTYPEERROR",
+      "msg": "The winner token type error."
+    },
+    {
+      "code": 6038,
+      "name": "RESOLUTIONYESAMOUNTERROR",
+      "msg": "The winner yes token amount error."
+    },
+    {
+      "code": 6039,
+      "name": "RESOLUTIONNOAMOUNTERROR",
+      "msg": "The winner no token amount error."
+    },
+    {
+      "code": 6040,
+      "name": "WITHDRAWLIQUIDITYSOLAMOUNTERROR",
+      "msg": "The withdraw sol amount error."
+    },
+    {
+      "code": 6041,
+      "name": "WITHDRAWNOTLPERROR",
+      "msg": "The withdraw: not lp error."
+    },
+    {
+      "code": 6042,
+      "name": "InvalidCalculation",
+      "msg": "Invalid calculation or arithmetic overflow"
+    },
+    {
+      "code": 6043,
+      "name": "SlippageExceeded",
+      "msg": "Slippage tolerance exceeded"
+    },
+    {
+      "code": 6044,
+      "name": "NotALiquidityProvider",
+      "msg": "Not a liquidity provider"
+    },
+    {
+      "code": 6045,
+      "name": "InsufficientLPShares",
+      "msg": "Insufficient LP shares"
+    },
+    {
+      "code": 6046,
+      "name": "InsufficientLiquidity",
+      "msg": "Insufficient liquidity in pool"
+    },
+    {
+      "code": 6047,
+      "name": "MarketAlreadyCompleted",
+      "msg": "Market already completed"
+    },
+    {
+      "code": 6048,
+      "name": "InvalidTokenType",
+      "msg": "Invalid token type"
+    },
+    {
+      "code": 6049,
+      "name": "NoWinningTokens",
+      "msg": "No winning tokens to claim"
+    },
+    {
+      "code": 6050,
+      "name": "AlreadyClaimed",
+      "msg": "Already claimed winnings"
+    },
+    {
+      "code": 6051,
+      "name": "FeatureDisabled",
+      "msg": "Feature disabled - would break bonding curve"
+    },
+    {
+      "code": 6052,
+      "name": "MarketClosed",
+      "msg": "Market is closed"
+    },
+    {
+      "code": 6053,
+      "name": "InvalidDateRange",
+      "msg": "start_date must be before end_date"
+    },
+    {
+      "code": 6054,
+      "name": "EndDateInPast",
+      "msg": "end_date must be in the future"
+    },
+    {
+      "code": 6055,
+      "name": "OracleOwnerMismatch",
+      "msg": "Oracle feed not owned by Switchboard program"
+    },
+    {
+      "code": 6056,
+      "name": "InvalidOracleData",
+      "msg": "Oracle data has no valid samples"
+    },
+    {
+      "code": 6057,
+      "name": "StaleOracleData",
+      "msg": "Oracle data is stale"
+    },
+    {
+      "code": 6058,
+      "name": "OracleNotConfigured",
+      "msg": "Oracle feed not configured for this market"
+    },
+    {
+      "code": 6059,
+      "name": "MarketNotExpired",
+      "msg": "Market has not reached ending slot"
+    },
+    {
+      "code": 6060,
+      "name": "InvalidOracleFeedLength",
+      "msg": "Oracle feed data too short"
+    },
+    {
+      "code": 6061,
+      "name": "OracleResolutionAlreadyFinished",
+      "msg": "Oracle resolution already completed"
+    },
+    {
+      "code": 6062,
+      "name": "InvalidDirection",
+      "msg": "Invalid swap direction (must be 0=Buy or 1=Sell)"
+    },
+    {
+      "code": 6063,
+      "name": "FeeTooHigh",
+      "msg": "Fee exceeds maximum allowed (500 bps = 5%)"
+    },
+    {
+      "code": 6064,
+      "name": "IncompleteOracleConfig",
+      "msg": "Oracle config incomplete: oracle_feed, price_target, and comparison_type must all be set together"
+    },
+    {
+      "code": 6065,
+      "name": "InsufficientVaultBalance",
+      "msg": "Insufficient SOL in vault for this operation"
+    },
+    {
+      "code": 6066,
+      "name": "ManualResolutionNotAllowed",
+      "msg": "Cannot manually resolve a market configured with oracle feed"
+    },
+    {
+      "code": 6067,
+      "name": "NoTimeConstraint",
+      "msg": "Market must have at least one time constraint (end_date or ending_slot)"
+    },
+    {
+      "code": 6068,
+      "name": "CombinedFeeTooHigh",
+      "msg": "Combined fees (platform + LP) exceed maximum allowed per side"
+    },
+    {
+      "code": 6069,
+      "name": "InvalidRewardPoolVault",
+      "msg": "Invalid reward pool vault address"
+    },
+    {
+      "code": 6070,
+      "name": "FeeInvariantViolation",
+      "msg": "Fee invariant violated: platform_fee + lp_fee + net_amount != gross amount"
+    },
+    {
+      "code": 6071,
+      "name": "MarketV1NotFound",
+      "msg": "MarketV1Config not found — this is a v0 market"
+    },
+    {
+      "code": 6072,
+      "name": "UseV2Instructions",
+      "msg": "Market is v1 — use v2 instructions"
+    },
+    {
+      "code": 6073,
+      "name": "InsufficientPairs",
+      "msg": "Insufficient collateral pairs"
+    },
+    {
+      "code": 6074,
+      "name": "InvalidSp1Proof",
+      "msg": "Invalid SP1 proof"
+    },
+    {
+      "code": 6075,
+      "name": "Sp1VkeyMismatch",
+      "msg": "SP1 VKey hash mismatch"
+    },
+    {
+      "code": 6076,
+      "name": "StaleMerkleRoot",
+      "msg": "Stale Merkle root in SP1 proof"
+    },
+    {
+      "code": 6077,
+      "name": "GroupFull",
+      "msg": "Market group is full"
+    },
+    {
+      "code": 6078,
+      "name": "GroupAlreadyResolved",
+      "msg": "Market group is already resolved"
+    },
+    {
+      "code": 6079,
+      "name": "MarketNotInGroup",
+      "msg": "Market is not in this group"
+    },
+    {
+      "code": 6080,
+      "name": "MarketAlreadyInGroup",
+      "msg": "Market is already in this group"
+    },
+    {
+      "code": 6081,
+      "name": "LabelTooLong",
+      "msg": "Label exceeds maximum length"
+    },
+    {
+      "code": 6082,
+      "name": "GroupNameTooLong",
+      "msg": "Group name exceeds maximum length"
+    },
+    {
+      "code": 6083,
+      "name": "CannotModifyResolvedGroup",
+      "msg": "Cannot modify resolved group"
+    },
+    {
+      "code": 6084,
+      "name": "GroupAlreadyHasWinner",
+      "msg": "Mutually exclusive group already has a YES winner"
+    },
+    {
+      "code": 6085,
+      "name": "GroupOracleNotConfigured",
+      "msg": "Oracle not configured for this group"
+    },
+    {
+      "code": 6086,
+      "name": "GroupOracleAlreadyResolved",
+      "msg": "Group oracle resolution already finished"
+    },
+    {
+      "code": 6087,
+      "name": "GroupNotExpired",
+      "msg": "Group has not reached end date"
+    },
+    {
+      "code": 6088,
+      "name": "ThresholdsNotSorted",
+      "msg": "Price thresholds must be sorted ascending"
+    },
+    {
+      "code": 6089,
+      "name": "ThresholdCountMismatch",
+      "msg": "Threshold count must equal markets count minus one"
+    },
+    {
+      "code": 6090,
+      "name": "MissingSubMarketAccounts",
+      "msg": "All sub-markets must be passed as remaining accounts"
+    },
+    {
+      "code": 6091,
+      "name": "NegRiskNotEnabled",
+      "msg": "NegRisk conversion is not enabled for this group"
+    },
+    {
+      "code": 6092,
+      "name": "CollateralMismatch",
+      "msg": "Collateral per pair mismatch across group markets"
+    },
+    {
+      "code": 6093,
+      "name": "NegRiskGroupTooLarge",
+      "msg": "NegRisk group exceeds maximum market count"
+    },
+    {
+      "code": 6094,
+      "name": "CannotSelectAllMarkets",
+      "msg": "Cannot select all markets for conversion"
+    },
+    {
+      "code": 6095,
+      "name": "IndicesNotSorted",
+      "msg": "Selected market indices must be sorted ascending"
+    },
+    {
+      "code": 6096,
+      "name": "IndexOutOfRange",
+      "msg": "Market index out of range"
+    },
+    {
+      "code": 6097,
+      "name": "DuplicateIndex",
+      "msg": "Duplicate market index in selection"
+    },
+    {
+      "code": 6098,
+      "name": "AmountNotAligned",
+      "msg": "Amount must be aligned to TOKEN_MULTIPLIER"
+    },
+    {
+      "code": 6099,
+      "name": "GroupNotMutuallyExclusive",
+      "msg": "Group must be mutually exclusive for NegRisk"
+    },
+    {
+      "code": 6100,
+      "name": "CannotModifyNegRiskGroup",
+      "msg": "Cannot modify group with active NegRisk config"
+    },
+    {
+      "code": 6101,
+      "name": "MarketAlreadyVoided",
+      "msg": "Market has already been voided"
+    },
+    {
+      "code": 6102,
+      "name": "MarketNotVoided",
+      "msg": "Market has not been voided"
+    }
+  ],
+  "types": [
+    {
+      "name": "BitShard",
+      "docs": [
+        "BitShard account for storing nullifiers",
+        "Uses prefix-based routing for efficient lookups"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "prefix_len",
+            "docs": [
+              "How many bits of the nullifier we've consumed for routing"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "prefix",
+            "docs": [
+              "The prefix bits (left-aligned in this array)"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "count",
+            "docs": [
+              "Count of nullifiers in this shard"
+            ],
+            "type": "u32"
+          },
+          {
+            "name": "nullifiers",
+            "docs": [
+              "Sorted list of nullifier hashes (for binary search)"
+            ],
+            "type": {
+              "vec": {
+                "array": [
+                  "u8",
+                  32
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "CompleteEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "virtual_sol_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "virtual_token_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_sol_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_token_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "pending_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "team_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "platform_buy_fee",
+            "type": "u64"
+          },
+          {
+            "name": "platform_sell_fee",
+            "type": "u64"
+          },
+          {
+            "name": "lp_buy_fee",
+            "type": "u64"
+          },
+          {
+            "name": "lp_sell_fee",
+            "type": "u64"
+          },
+          {
+            "name": "token_supply_config",
+            "type": "u64"
+          },
+          {
+            "name": "token_decimals_config",
+            "type": "u8"
+          },
+          {
+            "name": "initial_real_token_reserves_config",
+            "type": "u64"
+          },
+          {
+            "name": "min_sol_liquidity",
+            "type": "u64"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "reward_pool_vault",
+            "docs": [
+              "The reward pool vault PDA address (receives share of platform fees)",
+              "When Pubkey::default(), fee splitting is disabled (all goes to team_wallet)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "oyrade_mint",
+            "docs": [
+              "The OYRADE SPL token mint address (for holder discount verification)",
+              "When Pubkey::default(), holder discount is disabled"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "staking_fee_share_bps",
+            "docs": [
+              "Share of platform_fee sent to reward pool, in BPS (e.g., 3000 = 30%)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_bronze_min",
+            "docs": [
+              "Bronze tier: minimum staked OYRADE (e.g., 1_000 * 10^6)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_bronze_discount_bps",
+            "docs": [
+              "Bronze tier: discount in BPS (e.g., 1000 = 10%)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_silver_min",
+            "docs": [
+              "Silver tier: minimum staked OYRADE (e.g., 10_000 * 10^6)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_silver_discount_bps",
+            "docs": [
+              "Silver tier: discount in BPS (e.g., 2000 = 20%)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_gold_min",
+            "docs": [
+              "Gold tier: minimum staked OYRADE (e.g., 50_000 * 10^6)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_gold_discount_bps",
+            "docs": [
+              "Gold tier: discount in BPS (e.g., 3000 = 30%)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_diamond_min",
+            "docs": [
+              "Diamond tier: minimum staked OYRADE (e.g., 100_000 * 10^6)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "tier_diamond_discount_bps",
+            "docs": [
+              "Diamond tier: discount in BPS (e.g., 4000 = 40%)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_pool_program",
+            "docs": [
+              "The reward pool program ID (for StakeUser PDA verification)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "sp1_vkey_hash",
+            "docs": [
+              "SP1 verification key hash. When [0u8; 32], SP1 verification is skipped (dev mode)."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConvertPositionsEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "market_group",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "selected_count",
+            "type": "u8"
+          },
+          {
+            "name": "remaining_count",
+            "type": "u8"
+          },
+          {
+            "name": "sol_released",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_yes",
+            "type": "pubkey"
+          },
+          {
+            "name": "metadata_yes",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_yes_total_supply",
+            "type": "u64"
+          },
+          {
+            "name": "real_yes_sol_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "token_no",
+            "type": "pubkey"
+          },
+          {
+            "name": "metadata_no",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_no_total_supply",
+            "type": "u64"
+          },
+          {
+            "name": "real_no_sol_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "start_slot",
+            "type": "u64"
+          },
+          {
+            "name": "ending_slot",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreateMarketGroupParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "group_name",
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "type": "string"
+          },
+          {
+            "name": "mutually_exclusive",
+            "type": "bool"
+          },
+          {
+            "name": "image_url",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "oracle_feed",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "price_thresholds",
+            "type": {
+              "option": {
+                "vec": "u64"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreateMarketParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "yes_symbol",
+            "type": "string"
+          },
+          {
+            "name": "yes_uri",
+            "type": "string"
+          },
+          {
+            "name": "market_name",
+            "docs": [
+              "Market name / ticker stored on-chain (max 32 chars)"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "question",
+            "docs": [
+              "Market question stored on-chain (max 100 chars)"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "docs": [
+              "URL-friendly slug (max 128 chars)"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "image_url",
+            "docs": [
+              "Market image URL (max 256 chars)"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "docs": [
+              "Source (e.g. Pumpfun) (max 32 chars)"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "docs": [
+              "Category (e.g. Crypto, Politics) (max 32 chars)"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "start_slot",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "ending_slot",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "start_date",
+            "docs": [
+              "Unix timestamp (seconds) when the market opens for trading"
+            ],
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "end_date",
+            "docs": [
+              "Unix timestamp (seconds) when the market closes"
+            ],
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "oracle_feed",
+            "docs": [
+              "Switchboard feed pubkey for automated resolution"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "price_target",
+            "docs": [
+              "Target value for comparison (scaled integer matching oracle precision)"
+            ],
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "comparison_type",
+            "docs": [
+              "Comparison type: 0=GT, 1=LT, 2=EQ"
+            ],
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "metric_type",
+            "docs": [
+              "Metric type for UI: 0=price, 1=mcap, 2=curve_pct"
+            ],
+            "type": {
+              "option": "u8"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreateMarketV2Params",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "yes_symbol",
+            "type": "string"
+          },
+          {
+            "name": "yes_uri",
+            "type": "string"
+          },
+          {
+            "name": "market_name",
+            "type": "string"
+          },
+          {
+            "name": "question",
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "type": "string"
+          },
+          {
+            "name": "image_url",
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "name": "start_slot",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "ending_slot",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "start_date",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "end_date",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "oracle_feed",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "price_target",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "comparison_type",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "metric_type",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "collateral_per_pair",
+            "docs": [
+              "Face value of collateral per YES+NO pair (lamports).",
+              "E.g., 1_000_000_000 = 1 SOL per pair."
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GlobalUpdateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "global_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "initial_real_token_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "token_total_supply",
+            "type": "u64"
+          },
+          {
+            "name": "mint_decimals",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GroupConfigInitEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_group",
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_per_pair",
+            "type": "u64"
+          },
+          {
+            "name": "num_markets",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GroupMergeCollateralEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "market_group",
+            "type": "pubkey"
+          },
+          {
+            "name": "sol_withdrawn",
+            "type": "u64"
+          },
+          {
+            "name": "pairs_per_market",
+            "type": "u64"
+          },
+          {
+            "name": "num_markets",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GroupSplitCollateralEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "market_group",
+            "type": "pubkey"
+          },
+          {
+            "name": "sol_deposited",
+            "type": "u64"
+          },
+          {
+            "name": "pairs_per_market",
+            "type": "u64"
+          },
+          {
+            "name": "num_markets",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Lp",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lp_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Market",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "yes_token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "no_token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "market_name",
+            "docs": [
+              "Human-readable market name / ticker (e.g. \"TRUMP2024\")"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "question",
+            "docs": [
+              "Market question (e.g. \"Will X happen?\")"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "docs": [
+              "URL-friendly identifier (e.g. \"whitewhale-price-tomorrow-at-12am-est-above-090\")"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "image_url",
+            "docs": [
+              "Market image URL"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "docs": [
+              "Source of the market (e.g. \"Pumpfun\", \"Oyrade\")"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "docs": [
+              "Category (e.g. \"Crypto\", \"Politics\")"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "docs": [
+              "Unix timestamp when the market was created"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "initial_yes_token_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_yes_token_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_yes_sol_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "token_yes_total_supply",
+            "type": "u64"
+          },
+          {
+            "name": "initial_no_token_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_no_token_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_no_sol_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "token_no_total_supply",
+            "type": "u64"
+          },
+          {
+            "name": "is_completed",
+            "type": "bool"
+          },
+          {
+            "name": "winning_outcome",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "start_slot",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "ending_slot",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "start_date",
+            "docs": [
+              "Unix timestamp (seconds) when the market opens for trading"
+            ],
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "end_date",
+            "docs": [
+              "Unix timestamp (seconds) when the market closes"
+            ],
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "lps",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "Lp"
+                }
+              }
+            }
+          },
+          {
+            "name": "total_lp_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_feed",
+            "docs": [
+              "Switchboard feed address for automated resolution"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "price_target",
+            "docs": [
+              "Target value for comparison (scaled integer, e.g. lamports or 18-decimal)"
+            ],
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "comparison_type",
+            "docs": [
+              "Comparison type: 0=GT (greater than), 1=LT (less than), 2=EQ (equal within 0.1%)"
+            ],
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "metric_type",
+            "docs": [
+              "Metric type for UI display: 0=price, 1=mcap, 2=curve_pct (informational only)"
+            ],
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "oracle_resolution_finished",
+            "docs": [
+              "Whether oracle resolution has been finalized (prevents double-resolution)"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "resolved_at",
+            "docs": [
+              "Unix timestamp when resolution occurred"
+            ],
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "resolved_by",
+            "docs": [
+              "Resolution source: 0=admin, 1=oracle, 2=voided"
+            ],
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "is_voided",
+            "docs": [
+              "Whether the market has been voided/cancelled (refunds available)"
+            ],
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketGroup",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "group_name",
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "type": "string"
+          },
+          {
+            "name": "mutually_exclusive",
+            "type": "bool"
+          },
+          {
+            "name": "markets",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "labels",
+            "type": {
+              "vec": "string"
+            }
+          },
+          {
+            "name": "winning_market",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "is_resolved",
+            "type": "bool"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "end_date",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "image_url",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "name": "oracle_feed",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "price_thresholds",
+            "type": {
+              "vec": "u64"
+            }
+          },
+          {
+            "name": "oracle_resolution_finished",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketGroupConfig",
+      "docs": [
+        "Configuration for NegRisk position conversion on mutually exclusive market groups.",
+        "",
+        "Enables atomic conversion: burn NO on k selected markets, mint YES on remaining (N-k) markets,",
+        "release (k-1) * pairs * collateral_per_pair SOL to user.",
+        "",
+        "PDA seeds: [\"market_group_config\", market_group.key()]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_group",
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_per_pair",
+            "type": "u64"
+          },
+          {
+            "name": "total_group_collateral",
+            "type": "u64"
+          },
+          {
+            "name": "total_group_pairs",
+            "type": "u64"
+          },
+          {
+            "name": "negrisk_enabled",
+            "type": "bool"
+          },
+          {
+            "name": "num_markets",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketGroupOracleResolvedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_group",
+            "type": "pubkey"
+          },
+          {
+            "name": "winning_market",
+            "type": "pubkey"
+          },
+          {
+            "name": "winning_index",
+            "type": "u8"
+          },
+          {
+            "name": "oracle_feed",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_value",
+            "type": "i128"
+          },
+          {
+            "name": "price_thresholds",
+            "type": {
+              "vec": "u64"
+            }
+          },
+          {
+            "name": "resolved_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketGroupResolvedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_group",
+            "type": "pubkey"
+          },
+          {
+            "name": "winning_market",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "mutually_exclusive",
+            "type": "bool"
+          },
+          {
+            "name": "resolved_by",
+            "type": "u8"
+          },
+          {
+            "name": "resolved_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketV1Config",
+      "docs": [
+        "Configuration for v1 Conditional Token markets.",
+        "",
+        "In v1 markets, each YES+NO pair is backed by exactly `collateral_per_pair` lamports.",
+        "The AMM is a single YES/NO constant-product pool (no SOL moves during swaps).",
+        "Winning tokens redeem at fixed face value: tokens * collateral_per_pair / TOKEN_MULTIPLIER.",
+        "",
+        "PDA seeds: [\"market_v1_config\", market.key()]"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market",
+            "docs": [
+              "The market this config belongs to"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_per_pair",
+            "docs": [
+              "Face value of collateral per YES+NO pair (lamports)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_collateral_deposited",
+            "docs": [
+              "Total SOL collateral deposited into this market"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_pairs_minted",
+            "docs": [
+              "Total token pairs minted (each pair = TOKEN_MULTIPLIER YES + TOKEN_MULTIPLIER NO)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "amm_yes_reserves",
+            "docs": [
+              "YES token reserves in the AMM pool"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "amm_no_reserves",
+            "docs": [
+              "NO token reserves in the AMM pool"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MerkleMountainRange",
+      "docs": [
+        "Merkle Mountain Range state for storing commitments",
+        "This structure efficiently stores commitments without requiring the full tree"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "merkle_root_batch",
+            "docs": [
+              "Current merkle root of the batch (16 leaves)"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "batch_leaves",
+            "docs": [
+              "Leaves array of size 16 (current batch buffer)"
+            ],
+            "type": {
+              "array": [
+                {
+                  "array": [
+                    "u8",
+                    32
+                  ]
+                },
+                16
+              ]
+            }
+          },
+          {
+            "name": "identifier",
+            "docs": [
+              "Unique identifier for this pool"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "min_deposit_amount",
+            "docs": [
+              "Minimum deposit amount (in lamports)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "whole_tree_root",
+            "docs": [
+              "Root of the entire tree (computed from peaks)"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "last_small_tree_root",
+            "docs": [
+              "Root of the last completed small tree (for indexing)"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "batch_number",
+            "docs": [
+              "Current batch number (increments every 16 leaves)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "peaks",
+            "docs": [
+              "Peaks array for MMR structure"
+            ],
+            "type": {
+              "array": [
+                {
+                  "array": [
+                    "u8",
+                    32
+                  ]
+                },
+                26
+              ]
+            }
+          },
+          {
+            "name": "depth",
+            "docs": [
+              "Depth of each peak"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                26
+              ]
+            }
+          },
+          {
+            "name": "number_of_peaks",
+            "docs": [
+              "Number of active peaks"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "max_leaves",
+            "docs": [
+              "Maximum leaves this pool can hold"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OracleResolutionEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_feed",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_value",
+            "type": "i128"
+          },
+          {
+            "name": "price_target",
+            "type": "u64"
+          },
+          {
+            "name": "comparison_type",
+            "type": "u8"
+          },
+          {
+            "name": "winning_outcome",
+            "type": "u8"
+          },
+          {
+            "name": "resolved_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ShieldedMarketPool",
+      "docs": [
+        "Shielded Market Pool - Links MMR to a prediction market",
+        "This enables privacy-preserving betting for VIP users"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mmr",
+            "docs": [
+              "The Merkle Mountain Range for storing commitments"
+            ],
+            "type": {
+              "defined": {
+                "name": "MerkleMountainRange"
+              }
+            }
+          },
+          {
+            "name": "market",
+            "docs": [
+              "The prediction market this pool is linked to"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "shielded_sol_balance",
+            "docs": [
+              "Total shielded SOL balance in the pool"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "shielded_yes_count",
+            "docs": [
+              "Count of shielded YES position commitments"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "shielded_no_count",
+            "docs": [
+              "Count of shielded NO position commitments"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "authority",
+            "docs": [
+              "Pool authority (usually the market creator or admin)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "is_active",
+            "docs": [
+              "Whether the pool is active"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "Bump seed for PDA derivation"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "pool_fees_collected",
+            "docs": [
+              "Accumulated pool fees (POOL_FEE from shielded operations) not tracked in shielded_sol_balance"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwapFeeEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "direction",
+            "type": "u8"
+          },
+          {
+            "name": "token_type",
+            "type": "u8"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "platform_fee",
+            "type": "u64"
+          },
+          {
+            "name": "lp_fee",
+            "type": "u64"
+          },
+          {
+            "name": "discount_bps",
+            "type": "u64"
+          },
+          {
+            "name": "reward_share",
+            "type": "u64"
+          },
+          {
+            "name": "team_share",
+            "type": "u64"
+          },
+          {
+            "name": "net_amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SyncUserInfoEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "yes_balance",
+            "type": "u64"
+          },
+          {
+            "name": "no_balance",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TeeRegistry",
+      "docs": [
+        "Global registry of authorized TEE operator pubkeys.",
+        "Only operators listed here can call `tee_batch_sell` / `tee_batch_claim`.",
+        "",
+        "PDA: seeds = [b\"tee_registry\"], bump",
+        "Space: 8 (discriminator) + 32 (authority) + (4 + 32*10) (operators vec) + 1 (bump) = 365"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "The admin authority (copied from Config.authority at init time)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "operators",
+            "docs": [
+              "Registered TEE operator pubkeys (max 10)"
+            ],
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TradeEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_yes",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_no",
+            "type": "pubkey"
+          },
+          {
+            "name": "market_info",
+            "type": "pubkey"
+          },
+          {
+            "name": "sol_amount",
+            "type": "u64"
+          },
+          {
+            "name": "token_amount",
+            "type": "u64"
+          },
+          {
+            "name": "fee_lamports",
+            "type": "u64"
+          },
+          {
+            "name": "is_buy",
+            "type": "bool"
+          },
+          {
+            "name": "is_yes_no",
+            "type": "bool"
+          },
+          {
+            "name": "real_sol_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_token_yes_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "real_token_no_reserves",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpdateMarketParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_name",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "question",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "slug",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "image_url",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "source",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "category",
+            "type": {
+              "option": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "yes_token_amount",
+            "type": "u64"
+          },
+          {
+            "name": "no_token_amount",
+            "type": "u64"
+          },
+          {
+            "name": "lp_amount",
+            "type": "u64"
+          },
+          {
+            "name": "is_lp",
+            "type": "bool"
+          },
+          {
+            "name": "is_initialized",
+            "type": "bool"
+          },
+          {
+            "name": "has_claimed_yes",
+            "type": "bool"
+          },
+          {
+            "name": "has_claimed_no",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "withdraw_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "withdrawn",
+            "type": "u64"
+          },
+          {
+            "name": "total_withdrawn",
+            "type": "u64"
+          },
+          {
+            "name": "withdraw_time",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}

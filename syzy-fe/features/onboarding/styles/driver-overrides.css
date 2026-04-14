@@ -1,0 +1,249 @@
+/* Driver.js Syzy Theme Overrides */
+
+/* Overlay — darker for better focus */
+.driver-overlay {
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* Highlighted element — glow ring + pulse animation */
+.driver-active-element {
+  border-radius: 12px !important;
+  box-shadow:
+    0 0 0 3px hsl(172 66% 50%),
+    0 0 20px 4px rgba(45, 212, 191, 0.3),
+    0 0 40px 8px rgba(45, 212, 191, 0.15) !important;
+  animation: driver-glow-pulse 2s ease-in-out infinite !important;
+}
+
+@keyframes driver-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px hsl(172 66% 50%),
+      0 0 20px 4px rgba(45, 212, 191, 0.3),
+      0 0 40px 8px rgba(45, 212, 191, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px hsl(172 66% 50%),
+      0 0 25px 6px rgba(45, 212, 191, 0.4),
+      0 0 50px 12px rgba(45, 212, 191, 0.2);
+  }
+}
+
+/* ========== POPOVER — LIGHT MODE ========== */
+.driver-popover {
+  background: hsl(0 0% 100%) !important;
+  color: hsl(222 47% 11%) !important;
+  border: 1px solid hsl(214 32% 91%) !important;
+  border-radius: 0.75rem !important;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+  padding: 1rem !important;
+  max-width: 340px !important;
+  font-family: var(--font-sans), Inter, -apple-system, sans-serif !important;
+}
+
+/* Popover arrow — light */
+.driver-popover-arrow {
+  border-color: hsl(0 0% 100%) !important;
+}
+
+/* Title — light */
+.driver-popover-title {
+  color: hsl(222 47% 11%) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0.375rem !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Description — light */
+.driver-popover-description {
+  color: hsl(215 16% 47%) !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Footer */
+.driver-popover-footer {
+  margin-top: 0.75rem !important;
+  padding-top: 0.75rem !important;
+  border-top: 1px solid hsl(214 32% 91%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+/* Progress text */
+.driver-popover-progress-text {
+  color: hsl(215 16% 47%) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+}
+
+/* Navigation buttons */
+.driver-popover-navigation-btns {
+  display: flex !important;
+  gap: 0.375rem !important;
+}
+
+/* Shared button styles */
+.driver-popover-prev-btn,
+.driver-popover-next-btn {
+  border: none !important;
+  border-radius: calc(0.75rem - 4px) !important;
+  padding: 0.375rem 0.75rem !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 150ms ease !important;
+  line-height: 1.4 !important;
+  text-shadow: none !important;
+}
+
+/* Previous button — ghost */
+.driver-popover-prev-btn {
+  background: transparent !important;
+  color: hsl(215 16% 47%) !important;
+}
+
+.driver-popover-prev-btn:hover {
+  background: hsl(210 40% 96.1%) !important;
+  color: hsl(222 47% 11%) !important;
+}
+
+/* Next button — primary (teal) */
+.driver-popover-next-btn {
+  background: hsl(172 66% 50%) !important;
+  color: hsl(210 40% 98%) !important;
+}
+
+.driver-popover-next-btn:hover {
+  opacity: 0.9 !important;
+}
+
+/* Close button */
+.driver-popover-close-btn {
+  color: hsl(215 16% 47%) !important;
+  font-size: 1.25rem !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: calc(0.75rem - 4px) !important;
+  transition: all 150ms ease !important;
+  position: absolute !important;
+  top: 0.625rem !important;
+  right: 0.625rem !important;
+}
+
+.driver-popover-close-btn:hover {
+  background: hsl(210 40% 96.1%) !important;
+  color: hsl(222 47% 11%) !important;
+}
+
+/* ========== DARK MODE — hardcoded colors ========== */
+html.dark .driver-popover,
+.dark .driver-popover {
+  background: hsl(0 0% 8%) !important;
+  color: hsl(210 40% 98%) !important;
+  border: 1px solid hsl(0 0% 20%) !important;
+  box-shadow:
+    0 10px 25px -3px rgba(0, 0, 0, 0.5),
+    0 4px 10px -4px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+}
+
+html.dark .driver-popover-arrow,
+.dark .driver-popover-arrow {
+  border-color: hsl(0 0% 8%) !important;
+}
+
+html.dark .driver-popover-title,
+.dark .driver-popover-title {
+  color: hsl(210 40% 98%) !important;
+}
+
+html.dark .driver-popover-description,
+.dark .driver-popover-description {
+  color: hsl(215 20% 65%) !important;
+}
+
+html.dark .driver-popover-footer,
+.dark .driver-popover-footer {
+  border-top-color: hsl(0 0% 20%) !important;
+}
+
+html.dark .driver-popover-progress-text,
+.dark .driver-popover-progress-text {
+  color: hsl(215 20% 65%) !important;
+}
+
+html.dark .driver-popover-prev-btn,
+.dark .driver-popover-prev-btn {
+  color: hsl(215 20% 65%) !important;
+}
+
+html.dark .driver-popover-prev-btn:hover,
+.dark .driver-popover-prev-btn:hover {
+  background: hsl(0 0% 15%) !important;
+  color: hsl(210 40% 98%) !important;
+}
+
+html.dark .driver-popover-close-btn,
+.dark .driver-popover-close-btn {
+  color: hsl(215 20% 65%) !important;
+}
+
+html.dark .driver-popover-close-btn:hover,
+.dark .driver-popover-close-btn:hover {
+  background: hsl(0 0% 15%) !important;
+  color: hsl(210 40% 98%) !important;
+}
+
+/* Smooth transitions */
+.driver-popover,
+.driver-overlay {
+  transition: opacity 200ms ease !important;
+}
+
+/* Responsive — smaller popovers on mobile */
+@media (max-width: 640px) {
+  .driver-popover {
+    max-width: 280px !important;
+    padding: 0.75rem !important;
+  }
+
+  .driver-popover-title {
+    font-size: 0.875rem !important;
+  }
+
+  .driver-popover-description {
+    font-size: 0.75rem !important;
+  }
+
+  .driver-popover-prev-btn,
+  .driver-popover-next-btn {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .driver-popover,
+  .driver-overlay {
+    transition: none !important;
+  }
+
+  .driver-active-element {
+    animation: none !important;
+  }
+}

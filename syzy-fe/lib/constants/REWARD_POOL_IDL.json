@@ -1,0 +1,1492 @@
+{
+  "address": "5xAircHCq6BSrCcDJoTH27uM8kEzxztkTQJ32QNsYTPZ",
+  "metadata": {
+    "name": "reward_pool",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "OYRADE staking reward pool - stake OYRADE, earn SOL from trading fees"
+  },
+  "instructions": [
+    {
+      "name": "authorize_funder",
+      "docs": [
+        "Authorize a new funder address"
+      ],
+      "discriminator": [
+        18,
+        74,
+        66,
+        11,
+        50,
+        8,
+        89,
+        213
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "funder",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "claim",
+      "docs": [
+        "Claim accumulated SOL rewards"
+      ],
+      "discriminator": [
+        62,
+        198,
+        214,
+        193,
+        213,
+        159,
+        108,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stake_user",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  107,
+                  101,
+                  95,
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reward_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_user",
+      "docs": [
+        "Close a user staking account (must have 0 staked and 0 pending)"
+      ],
+      "discriminator": [
+        86,
+        219,
+        138,
+        140,
+        236,
+        24,
+        118,
+        200
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stake_user",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  107,
+                  101,
+                  95,
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_user",
+      "docs": [
+        "Create a user staking account"
+      ],
+      "discriminator": [
+        108,
+        227,
+        130,
+        130,
+        252,
+        109,
+        75,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stake_user",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  107,
+                  101,
+                  95,
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deauthorize_funder",
+      "docs": [
+        "Deauthorize a funder address"
+      ],
+      "discriminator": [
+        75,
+        130,
+        38,
+        206,
+        85,
+        75,
+        82,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "funder",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "distribute_fees",
+      "docs": [
+        "Activate accumulated external fees (from prediction market) for distribution.",
+        "Reads vault balance, calculates excess above current undistributed rewards,",
+        "and sets new reward_rate. Called by authority or authorized funder (crank)."
+      ],
+      "discriminator": [
+        120,
+        56,
+        27,
+        7,
+        53,
+        176,
+        113,
+        186
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reward_vault",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "fund",
+      "docs": [
+        "Fund the reward pool with SOL and set/update reward distribution rate"
+      ],
+      "discriminator": [
+        218,
+        188,
+        111,
+        221,
+        152,
+        113,
+        174,
+        7
+      ],
+      "accounts": [
+        {
+          "name": "funder",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reward_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_pool",
+      "docs": [
+        "Initialize the reward pool with OYRADE staking mint and reward duration"
+      ],
+      "discriminator": [
+        95,
+        180,
+        10,
+        172,
+        84,
+        174,
+        232,
+        40
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "staking_mint",
+          "docs": [
+            "The OYRADE SPL token mint"
+          ]
+        },
+        {
+          "name": "staking_vault",
+          "docs": [
+            "Token account to hold staked OYRADE (authority = pool PDA)"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "staking_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reward_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "reward_duration",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "pause",
+      "docs": [
+        "Emergency pause/unpause (authority only)"
+      ],
+      "discriminator": [
+        211,
+        22,
+        221,
+        251,
+        74,
+        121,
+        193,
+        47
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "stake",
+      "docs": [
+        "Stake OYRADE tokens into the reward pool"
+      ],
+      "discriminator": [
+        206,
+        176,
+        202,
+        18,
+        200,
+        209,
+        179,
+        108
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "staking_vault",
+          "writable": true
+        },
+        {
+          "name": "stake_user",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  107,
+                  101,
+                  95,
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_staking_ata",
+          "docs": [
+            "User's OYRADE token account"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "unstake",
+      "docs": [
+        "Unstake OYRADE tokens from the reward pool"
+      ],
+      "discriminator": [
+        90,
+        95,
+        107,
+        42,
+        205,
+        124,
+        50,
+        225
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool.staking_mint",
+                "account": "RewardPool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "staking_vault",
+          "writable": true
+        },
+        {
+          "name": "stake_user",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  107,
+                  101,
+                  95,
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_staking_ata",
+          "docs": [
+            "User's OYRADE token account"
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  119,
+                  97,
+                  114,
+                  100,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "RewardPool",
+      "discriminator": [
+        134,
+        121,
+        197,
+        211,
+        133,
+        154,
+        82,
+        32
+      ]
+    },
+    {
+      "name": "StakeUser",
+      "discriminator": [
+        129,
+        47,
+        30,
+        146,
+        159,
+        123,
+        126,
+        72
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "ClaimEvent",
+      "discriminator": [
+        93,
+        15,
+        70,
+        170,
+        48,
+        140,
+        212,
+        219
+      ]
+    },
+    {
+      "name": "FundEvent",
+      "discriminator": [
+        51,
+        52,
+        94,
+        171,
+        253,
+        120,
+        28,
+        26
+      ]
+    },
+    {
+      "name": "PoolInitializedEvent",
+      "discriminator": [
+        249,
+        103,
+        129,
+        77,
+        214,
+        169,
+        88,
+        24
+      ]
+    },
+    {
+      "name": "StakeEvent",
+      "discriminator": [
+        226,
+        134,
+        188,
+        173,
+        19,
+        33,
+        75,
+        175
+      ]
+    },
+    {
+      "name": "UnstakeEvent",
+      "discriminator": [
+        162,
+        104,
+        137,
+        228,
+        81,
+        3,
+        79,
+        197
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InsufficientStake",
+      "msg": "Insufficient staked balance"
+    },
+    {
+      "code": 6001,
+      "name": "NoRewardsToClaim",
+      "msg": "No rewards to claim"
+    },
+    {
+      "code": 6002,
+      "name": "MathOverflow",
+      "msg": "Arithmetic overflow or underflow"
+    },
+    {
+      "code": 6003,
+      "name": "UnauthorizedFunder",
+      "msg": "Unauthorized funder"
+    },
+    {
+      "code": 6004,
+      "name": "MaxFundersReached",
+      "msg": "Maximum funders reached"
+    },
+    {
+      "code": 6005,
+      "name": "FunderAlreadyAuthorized",
+      "msg": "Funder already authorized"
+    },
+    {
+      "code": 6006,
+      "name": "FunderNotFound",
+      "msg": "Funder not found"
+    },
+    {
+      "code": 6007,
+      "name": "CannotDeauthorizeAuthority",
+      "msg": "Cannot deauthorize pool authority"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidRewardDuration",
+      "msg": "Invalid reward duration"
+    },
+    {
+      "code": 6009,
+      "name": "UserHasStakedTokens",
+      "msg": "User still has staked tokens"
+    },
+    {
+      "code": 6010,
+      "name": "UserHasPendingRewards",
+      "msg": "User still has pending rewards"
+    },
+    {
+      "code": 6011,
+      "name": "AmountMustBeGreaterThanZero",
+      "msg": "Stake amount must be greater than zero"
+    },
+    {
+      "code": 6012,
+      "name": "InsufficientRewardVault",
+      "msg": "Insufficient reward vault balance"
+    },
+    {
+      "code": 6013,
+      "name": "InvalidAuthority",
+      "msg": "Invalid pool authority"
+    },
+    {
+      "code": 6014,
+      "name": "FundAmountZero",
+      "msg": "Fund amount must be greater than zero"
+    },
+    {
+      "code": 6015,
+      "name": "Paused",
+      "msg": "Program is paused"
+    },
+    {
+      "code": 6016,
+      "name": "FundAmountTooSmall",
+      "msg": "Fund amount too small for reward duration (rate would be zero)"
+    }
+  ],
+  "types": [
+    {
+      "name": "ClaimEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FundEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "funder",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "new_reward_rate",
+            "type": "u64"
+          },
+          {
+            "name": "reward_duration_end",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolInitializedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "staking_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_duration",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RewardPool",
+      "docs": [
+        "Global reward pool state"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "Authority that can manage the pool"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "staking_mint",
+            "docs": [
+              "The OYRADE SPL token mint"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "staking_vault",
+            "docs": [
+              "Token account that holds staked OYRADE tokens"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "total_staked",
+            "docs": [
+              "Total OYRADE tokens staked across all users"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_per_token_stored",
+            "docs": [
+              "Accumulated reward per staked token (scaled by PRECISION)",
+              "reward_per_token += (elapsed * reward_rate * PRECISION) / total_staked"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "reward_rate",
+            "docs": [
+              "SOL reward distributed per second (lamports/second)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_duration",
+            "docs": [
+              "Reward distribution duration in seconds"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_duration_end",
+            "docs": [
+              "Timestamp when current reward period ends"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_update_time",
+            "docs": [
+              "Last time reward_per_token_stored was updated"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump for the pool account"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "reward_vault_bump",
+            "docs": [
+              "PDA bump for the reward vault"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Emergency pause flag — blocks stake/unstake/claim when true"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "funders",
+            "docs": [
+              "List of authorized funders (addresses allowed to call `fund`)"
+            ],
+            "type": {
+              "array": [
+                "pubkey",
+                5
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakeEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "total_staked",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakeUser",
+      "docs": [
+        "Per-user staking state"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pool",
+            "docs": [
+              "The pool this user belongs to"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "The user's wallet pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "balance_staked",
+            "docs": [
+              "Amount of OYRADE tokens staked"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_per_token_completed",
+            "docs": [
+              "The reward_per_token value at the time of last update",
+              "(prevents double-counting rewards)"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "reward_pending",
+            "docs": [
+              "Accumulated but unclaimed SOL rewards (lamports)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "stake_timestamp",
+            "docs": [
+              "Timestamp when user first staked (for analytics/lockup tracking)"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UnstakeEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "total_staked",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}
