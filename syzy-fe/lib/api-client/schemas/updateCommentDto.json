@@ -1,0 +1,1 @@
+{"type":"object","properties":{"content":{"type":"string","description":"Comment content","example":"Updated comment content","maxLength":5000}},"x-readme-ref-name":"UpdateCommentDto"}

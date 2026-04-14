@@ -1,0 +1,1 @@
+{"type":"object","properties":{"email":{"type":"string","description":"Email address for notifications","example":"user@example.com"}},"required":["email"],"x-readme-ref-name":"UpdateEmailDto"}

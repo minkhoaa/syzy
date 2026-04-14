@@ -1,0 +1,1 @@
+{"type":"object","properties":{"marketId":{"type":"string","description":"On-chain market PDA to add to watchlist","example":"DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK"}},"required":["marketId"],"x-readme-ref-name":"AddWatchlistDto"}

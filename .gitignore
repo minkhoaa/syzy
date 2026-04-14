@@ -66,8 +66,7 @@ syzy-fe/.vercel/
 *.seed
 *.pid.lock
 
-# Generated files (kubb API client)
-syzy-fe/lib/api-client/
+# Temp files
 syzy-fe/temp-openapi.json
 
 # Archive/backup files
@@ -89,6 +88,9 @@ syzy-fe/docs/plan/
 
 # PDF and large binary files in docs
 syzy-fe/docs/*.pdf
+
+# Docs static images/screenshots (use external hosting)
+syzy-fe/docs/static/
 
 # Misc
 .superpowers/

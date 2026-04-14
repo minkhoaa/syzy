@@ -1,0 +1,1 @@
+{"type":"object","properties":{"encryptedData":{"type":"string","description":"Updated encrypted note data","example":"U2FsdGVkX1+vupppZksvRf5pq5g5XjFRIipRkwB0K1Y..."},"spent":{"type":"boolean","description":"Mark note as spent","example":true}},"x-readme-ref-name":"UpdateNoteDto"}

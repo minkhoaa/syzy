@@ -1,0 +1,1 @@
+{"type":"object","properties":{"walletAddress":{"type":"string","description":"Solana wallet address","example":"DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK"}},"required":["walletAddress"],"x-readme-ref-name":"GetNonceDto"}
