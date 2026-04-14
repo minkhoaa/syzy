@@ -4,10 +4,7 @@ import { useState } from "react";
 import { Loader2, Wallet } from "lucide-react";
 import { useReownWallet } from "@/features/auth/hooks/use-reown-wallet";
 import { useWaitlistMemberSession } from "@/features/waitlist/hooks/use-waitlist-member-session";
-import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitlist-member-auth-store";
 import { useAppKitProvider } from "@reown/appkit/react";
-import { WalletWaitlistStatus } from "./wallet-waitlist-status";
-
 import { Button } from "@/components/ui/button";
 
 const WAITLIST_ORIGIN = process.env.NEXT_PUBLIC_WAITLIST_API_URL ?? "/api";
@@ -20,17 +17,8 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
   const { connected, address, connect } = useReownWallet();
   const { walletProvider } = useAppKitProvider<unknown>("solana");
   const { join } = useWaitlistMemberSession();
-  const { member } = useWaitlistMemberAuthStore();
   const [isJoining, setIsJoining] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  // If connected and already registered (has member in store), redirect to show status
-  const hasJoined = connected && !!member;
-
-  if (hasJoined && member) {
-    // Show full status UI when already registered
-    return <WalletWaitlistStatus />;
-  }
 
   if (connected && address) {
     if (isJoining) {
@@ -119,11 +107,23 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
           <Wallet className="h-6 w-6 text-primary" />
         </div>
         <h3 className="text-xl font-semibold text-foreground mb-2">Connect your Stellar wallet</h3>
-        <p className="text-sm text-muted-foreground leading-6">
+        <p className="text-sm text-muted-foreground leading-6 mb-4">
           Syzy uses wallet-based verification. Connect a Stellar wallet to
-          secure your spot and get a referral link immediately. We&apos;ll ask
-          for your email after verification to deliver your access code.
+          secure your spot and get a referral link immediately.
         </p>
+        {/* Trust signals */}
+        <div className="flex flex-col gap-2 mb-4">
+          {[
+            "No email required to join",
+            "Referral link generated instantly",
+            "Freighter, Albedo, or any Stellar wallet",
+          ].map((text) => (
+            <div key={text} className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="text-green-500 font-bold text-xs">&#10003;</span>
+              {text}
+            </div>
+          ))}
+        </div>
       </div>
 
       <Button
@@ -139,6 +139,14 @@ export function WalletWaitlistPanel({ referredByCode }: WalletWaitlistPanelProps
       <p className="text-center text-sm text-muted-foreground">
         Powered by Freighter, Albedo, or any Stellar-compatible wallet.
       </p>
+
+      {referredByCode && (
+        <div className="rounded-xl border border-dashed border-border/60 bg-muted/20 px-4 py-3">
+          <p className="text-xs text-muted-foreground">
+            You were referred &mdash; joining gives your referrer a point.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
