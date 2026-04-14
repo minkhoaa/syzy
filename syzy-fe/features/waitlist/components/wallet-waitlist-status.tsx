@@ -121,7 +121,7 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
 
   return (
     <div className="space-y-4">
-      {/* 1. Referral link u2014 growth-first */}
+      {/* 1. Referral link — growth-first */}
       <div className="rounded-xl border border-border bg-card p-4">
         <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground mb-2">
           Your referral link
@@ -153,7 +153,7 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
         <div className="rounded-xl border border-border bg-card p-4 text-center">
           <p className="text-xs text-muted-foreground">Queue rank</p>
           <p className="text-3xl font-bold text-foreground leading-tight">
-            {status.queueRank != null ? `#${status.queueRank.toLocaleString()}` : "u2014"}
+            {status.queueRank != null ? `#${status.queueRank.toLocaleString()}` : "—"}
           </p>
           {status.totalEntries != null && status.totalEntries > 0 && (
             <p className="text-xs text-muted-foreground">of {status.totalEntries.toLocaleString()}</p>
@@ -230,7 +230,7 @@ export function WalletWaitlistStatus({ showIdentity = true }: WalletWaitlistStat
         </div>
       )}
 
-      {/* 5. Identity block u2014 optional, hidden when showIdentity=false */}
+      {/* 5. Identity block — optional, hidden when showIdentity=false */}
       {showIdentity && (
         <div className="rounded-xl border border-primary/20 bg-primary/10 px-4 py-3">
           <p className="text-sm font-semibold text-foreground leading-tight">
