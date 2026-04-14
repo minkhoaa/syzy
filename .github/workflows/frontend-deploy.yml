@@ -45,27 +45,41 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./
-          dockerfile: syzy-fe/Dockerfile
+          context: ./syzy-fe
+          file: ./syzy-fe/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_RPC_URL=${{ secrets.NEXT_PUBLIC_RPC_URL }}
+            NEXT_PUBLIC_REOWN_PROJECT_ID=${{ secrets.NEXT_PUBLIC_REOWN_PROJECT_ID }}
+            NEXT_PUBLIC_PROGRAM_ID=${{ secrets.NEXT_PUBLIC_PROGRAM_ID }}
+            NEXT_PUBLIC_WAITLIST_API_URL=${{ secrets.NEXT_PUBLIC_WAITLIST_API_URL }}
 
       - name: Deploy to server
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GHCR_USER: ${{ github.repository_owner }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+          envs: IMAGE_NAME,GHCR_TOKEN,GHCR_USER
           script: |
-            # Login to GHCR
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            # Login to GHCR using PAT
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
 
             # Pull new image
-            docker pull ${{ env.IMAGE_NAME }}:latest
+            docker pull ${IMAGE_NAME}:latest
+
+            # Create network if not exists
+            docker network create syzy-network 2>/dev/null || true
 
             # Stop and remove old container
             docker stop syzy-frontend || true
@@ -74,18 +88,24 @@ jobs:
             # Run new container
             docker run -d \
               --name syzy-frontend \
+              --network syzy-network \
               --restart always \
               -p 3000:3000 \
-              -e NEXT_PUBLIC_API_URL='${{ secrets.NEXT_PUBLIC_API_URL }}' \
-              -e NEXT_PUBLIC_RPC_URL='${{ secrets.NEXT_PUBLIC_RPC_URL }}' \
-              -e NEXT_PUBLIC_REOWN_PROJECT_ID='${{ secrets.NEXT_PUBLIC_REOWN_PROJECT_ID }}' \
-              -e NEXT_PUBLIC_PROGRAM_ID='${{ secrets.NEXT_PUBLIC_PROGRAM_ID }}' \
-              -e NEXT_PUBLIC_WAITLIST_API_URL='${{ secrets.NEXT_PUBLIC_WAITLIST_API_URL }}' \
-              ${{ env.IMAGE_NAME }}:latest
+              ${IMAGE_NAME}:latest
 
-            # Cleanup
+            # Cleanup old images
             docker image prune -f
 
-            # Health check
-            sleep 10
-            curl -f http://localhost:3000/health || curl -f http://localhost:3000 || exit 1
+            # Health check with retry
+            echo "Waiting for frontend to start..."
+            for i in 1 2 3 4 5; do
+              sleep 5
+              if curl -f http://localhost:3000 2>/dev/null; then
+                echo "Frontend is healthy!"
+                exit 0
+              fi
+              echo "Attempt $i failed, retrying..."
+            done
+            echo "Health check failed after 5 attempts"
+            docker logs syzy-frontend --tail 50
+            exit 1

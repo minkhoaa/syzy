@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -50,7 +48,7 @@ services:
       - PORT=7788
       - DATABASE_URL=postgresql://syzy:syzy@postgres:5432/syzy_waitlist
       - REDIS_URL=redis://redis:6379
-      - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
       - EMAIL_FROM=${EMAIL_FROM:-admin@syzy.space}
       - WAITLIST_APP_ORIGIN=${WAITLIST_APP_ORIGIN:-http://localhost:3000}
       - WAITLIST_APP_DOMAIN=${WAITLIST_APP_DOMAIN:-localhost}
@@ -82,10 +80,11 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:7788}
       - NEXT_PUBLIC_RPC_URL=${NEXT_PUBLIC_RPC_URL:-https://api.devnet.solana.com}
-      - NEXT_PUBLIC_REOWN_PROJECT_ID=${NEXT_PUBLIC_REOWN_PROJECT_ID}
-      - NEXT_PUBLIC_PROGRAM_ID=${NEXT_PUBLIC_PROGRAM_ID}
+      - NEXT_PUBLIC_REOWN_PROJECT_ID=${NEXT_PUBLIC_REOWN_PROJECT_ID:-}
+      - NEXT_PUBLIC_PROGRAM_ID=${NEXT_PUBLIC_PROGRAM_ID:-}
       - NEXT_PUBLIC_WAITLIST_API_URL=${NEXT_PUBLIC_WAITLIST_API_URL:-http://localhost:7788}
     depends_on:
       backend:

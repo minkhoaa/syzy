@@ -45,37 +45,56 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./
-          dockerfile: syzy-be/Dockerfile
+          context: ./syzy-be
+          file: ./syzy-be/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=production
 
       - name: Deploy to server
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GHCR_USER: ${{ github.repository_owner }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+          envs: IMAGE_NAME,GHCR_TOKEN,GHCR_USER
           script: |
-            # Login to GHCR
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            # Login to GHCR using PAT
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
 
             # Pull new image
-            docker pull ${{ env.IMAGE_NAME }}:latest
+            docker pull ${IMAGE_NAME}:latest
+
+            # Create network if not exists
+            docker network create syzy-network 2>/dev/null || true
 
             # Stop and remove old container
             docker stop syzy-backend || true
             docker rm syzy-backend || true
 
+            # Run Prisma migrations
+            docker run --rm \
+              --network syzy-network \
+              -e DATABASE_URL='${{ secrets.DB_URL }}' \
+              ${IMAGE_NAME}:latest \
+              npx prisma migrate deploy || echo "Migration skipped or failed"
+
             # Run new container
             docker run -d \
               --name syzy-backend \
+              --network syzy-network \
               --restart always \
               -p 7788:7788 \
+              -e NODE_ENV=production \
               -e DATABASE_URL='${{ secrets.DB_URL }}' \
               -e REDIS_URL='${{ secrets.REDIS_URL }}' \
               -e RESEND_API_KEY='${{ secrets.RESEND_API_KEY }}' \
@@ -85,11 +104,21 @@ jobs:
               -e WAITLIST_ADMIN_JWT_SECRET='${{ secrets.WAITLIST_ADMIN_JWT_SECRET }}' \
               -e WAITLIST_MEMBER_REFRESH_SECRET='${{ secrets.WAITLIST_MEMBER_REFRESH_SECRET }}' \
               -e WAITLIST_ADMIN_REFRESH_SECRET='${{ secrets.WAITLIST_ADMIN_REFRESH_SECRET }}' \
-              ${{ env.IMAGE_NAME }}:latest
+              ${IMAGE_NAME}:latest
 
-            # Cleanup
+            # Cleanup old images
             docker image prune -f
 
-            # Health check
-            sleep 10
-            curl -f http://localhost:7788/health || exit 1
+            # Health check with retry
+            echo "Waiting for backend to start..."
+            for i in 1 2 3 4 5; do
+              sleep 5
+              if curl -f http://localhost:7788/health 2>/dev/null; then
+                echo "Backend is healthy!"
+                exit 0
+              fi
+              echo "Attempt $i failed, retrying..."
+            done
+            echo "Health check failed after 5 attempts"
+            docker logs syzy-backend --tail 50
+            exit 1

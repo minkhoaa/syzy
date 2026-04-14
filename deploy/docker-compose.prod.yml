@@ -1,0 +1,120 @@
+# Production Docker Compose for Syzy
+# Uses pre-built images from GitHub Container Registry
+# 
+# Usage:
+#   1. Create .env file with required secrets (see .env.example)
+#   2. docker compose -f docker-compose.prod.yml up -d
+#
+# Manual deployment (without GitHub Actions):
+#   docker login ghcr.io -u <github-username>
+#   docker compose -f docker-compose.prod.yml pull
+#   docker compose -f docker-compose.prod.yml up -d
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: syzy-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-syzy}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-syzy_waitlist}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-syzy} -d ${POSTGRES_DB:-syzy_waitlist}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - syzy-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: syzy-redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - syzy-network
+
+  backend:
+    image: ${BACKEND_IMAGE:-ghcr.io/morcalabs/syzy/syzy-backend:latest}
+    container_name: syzy-backend
+    restart: always
+    ports:
+      - "127.0.0.1:7788:7788"
+    environment:
+      - NODE_ENV=production
+      - PORT=7788
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-syzy}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-syzy_waitlist}
+      - REDIS_URL=redis://redis:6379
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - EMAIL_FROM=${EMAIL_FROM:-admin@syzy.space}
+      - WAITLIST_APP_ORIGIN=${WAITLIST_APP_ORIGIN:-https://syzy.space}
+      - WAITLIST_APP_DOMAIN=${WAITLIST_APP_DOMAIN:-syzy.space}
+      - WAITLIST_MEMBER_JWT_SECRET=${WAITLIST_MEMBER_JWT_SECRET}
+      - WAITLIST_ADMIN_JWT_SECRET=${WAITLIST_ADMIN_JWT_SECRET}
+      - WAITLIST_MEMBER_REFRESH_SECRET=${WAITLIST_MEMBER_REFRESH_SECRET}
+      - WAITLIST_ADMIN_REFRESH_SECRET=${WAITLIST_ADMIN_REFRESH_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7788/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - syzy-network
+
+  backend-migrate:
+    image: ${BACKEND_IMAGE:-ghcr.io/morcalabs/syzy/syzy-backend:latest}
+    container_name: syzy-backend-migrate
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-syzy}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-syzy_waitlist}
+    command: ["npx", "prisma", "migrate", "deploy"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - syzy-network
+    restart: "no"
+
+  frontend:
+    image: ${FRONTEND_IMAGE:-ghcr.io/morcalabs/syzy/syzy-frontend:latest}
+    container_name: syzy-frontend
+    restart: always
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - syzy-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  syzy-network:
+    driver: bridge
