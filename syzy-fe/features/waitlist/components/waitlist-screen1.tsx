@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, Wallet } from "lucide-react";
 import { useReownWallet } from "@/features/auth/hooks/use-reown-wallet";
 import { useWaitlistMemberSession } from "@/features/waitlist/hooks/use-waitlist-member-session";
 import { useAppKitProvider } from "@reown/appkit/react";
@@ -61,7 +60,6 @@ export function WaitlistScreen1({ referredByCode }: WaitlistScreen1Props) {
   if (isJoining) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 py-16">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
         <p className="text-sm text-muted-foreground">Signing &amp; registering&hellip;</p>
       </div>
     );
@@ -89,9 +87,6 @@ export function WaitlistScreen1({ referredByCode }: WaitlistScreen1Props) {
       {connected && address ? (
         <>
           <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/10 p-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
-              <Wallet className="h-5 w-5 text-primary" />
-            </div>
             <div>
               <p className="text-sm font-medium text-foreground">Wallet connected</p>
               <p className="text-xs text-muted-foreground font-mono">
@@ -113,7 +108,6 @@ export function WaitlistScreen1({ referredByCode }: WaitlistScreen1Props) {
             onClick={handleJoin}
             className="w-full bg-primary hover:bg-teal-600 text-white font-semibold"
           >
-            <Wallet className="mr-2 h-5 w-5" />
             Join waitlist with this wallet
           </Button>
         </>
@@ -124,7 +118,6 @@ export function WaitlistScreen1({ referredByCode }: WaitlistScreen1Props) {
             onClick={connect}
             className="w-full bg-primary hover:bg-teal-600 text-white font-semibold"
           >
-            <Wallet className="mr-2 h-5 w-5" />
             Connect Now
           </Button>
 

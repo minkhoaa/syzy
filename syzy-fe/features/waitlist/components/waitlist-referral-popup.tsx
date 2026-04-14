@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface WaitlistReferralPopupProps {
@@ -65,20 +64,14 @@ export function WaitlistReferralPopup({ referralCode, onDismiss }: WaitlistRefer
 
         {/* Action buttons */}
         <div className="grid grid-cols-2 gap-3">
-          <Button size="sm" variant="outline" onClick={handleCopy} className="gap-2">
-            {copied ? (
-              <Check className="h-4 w-4 text-green-500" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
+          <Button size="sm" variant="outline" onClick={handleCopy}>
             {copied ? "Copied!" : "Copy"}
           </Button>
           <Button
             size="sm"
             onClick={handleShareX}
-            className="bg-primary hover:bg-teal-600 text-white gap-2"
+            className="bg-primary hover:bg-teal-600 text-white"
           >
-            <TrendingUp className="h-4 w-4" />
             Share on X
           </Button>
         </div>

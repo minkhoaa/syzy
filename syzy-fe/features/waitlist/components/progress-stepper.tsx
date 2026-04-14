@@ -1,6 +1,5 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type StepState = "inactive" | "active" | "done";
@@ -21,9 +20,9 @@ export function ProgressStepper({ steps, className }: ProgressStepperProps) {
     <div className={cn("flex w-full items-start", className)}>
       {steps.map((step, i) => (
         <div key={step.id} className="relative flex flex-1 flex-col items-center">
-          {/* Connector line — positioned at dot center level, spans to next dot */}
+          {/* Connector line — from right edge of current dot to left edge of next dot */}
           {i < steps.length - 1 && (
-            <div className="absolute left-1/2 top-[18px] h-0.5 w-full -translate-y-1/2 overflow-hidden">
+            <div className="absolute left-[calc(50%+18px)] top-[18px] h-0.5 w-[calc(100%-36px)] -translate-y-1/2 overflow-hidden">
               <div
                 className={cn(
                   "h-full w-full transition-all duration-500 ease-out",
@@ -44,7 +43,7 @@ export function ProgressStepper({ steps, className }: ProgressStepperProps) {
             )}
           >
             {step.state === "done" ? (
-              <Check className="h-4 w-4" />
+              <span>&#10003;</span>
             ) : (
               <span>{i + 1}</span>
             )}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, Check } from "lucide-react";
 import { useWaitlistMemberSession } from "@/features/waitlist/hooks/use-waitlist-member-session";
 import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitlist-member-auth-store";
 import { Button } from "@/components/ui/button";
@@ -65,11 +64,6 @@ export function WaitlistScreen2({ onEmailSubmitted, onSkip }: WaitlistScreen2Pro
                 : "border-border",
             )}
           />
-          {emailInput.length > 0 && emailValid && (
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-              <Check className="h-4 w-4 text-green-500" />
-            </span>
-          )}
         </div>
 
         {emailState === "error" && emailError && (
@@ -84,11 +78,7 @@ export function WaitlistScreen2({ onEmailSubmitted, onSkip }: WaitlistScreen2Pro
           disabled={!emailValid || emailState === "submitting"}
           className="w-full bg-primary hover:bg-teal-600 text-white font-semibold"
         >
-          {emailState === "submitting" ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            "Submit"
-          )}
+          {emailState === "submitting" ? "Submitting..." : "Submit"}
         </Button>
       </form>
 

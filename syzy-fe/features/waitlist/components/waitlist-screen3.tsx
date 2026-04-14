@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Loader2, Copy, Check, TrendingUp } from "lucide-react";
 import { useReownWallet } from "@/features/auth/hooks/use-reown-wallet";
 import { useWaitlistMemberAuthStore } from "@/features/waitlist/store/use-waitlist-member-auth-store";
 import { waitlistApiClient } from "@/lib/waitlist-kubb";
@@ -83,20 +82,14 @@ export function WaitlistScreen3() {
           {referralLink}
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <Button size="sm" variant="outline" onClick={handleCopy} className="gap-2">
-            {copied ? (
-              <Check className="h-4 w-4 text-green-500" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
+          <Button size="sm" variant="outline" onClick={handleCopy}>
             {copied ? "Copied!" : "Copy Link"}
           </Button>
           <Button
             size="sm"
             onClick={handleShareX}
-            className="bg-primary hover:bg-teal-600 text-white gap-2"
+            className="bg-primary hover:bg-teal-600 text-white"
           >
-            <TrendingUp className="h-4 w-4" />
             Share on X
           </Button>
         </div>
@@ -105,7 +98,7 @@ export function WaitlistScreen3() {
       {/* Stats */}
       {isLoading ? (
         <div className="flex justify-center py-4">
-          <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+          <p className="text-xs text-muted-foreground">Loading stats...</p>
         </div>
       ) : status ? (
         <div className="grid grid-cols-2 gap-3">
